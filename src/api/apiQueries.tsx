@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/database'
-import { Translation, Word } from "../Types/types";
+import { Translation, Word } from "../types/types";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBr1PLF6Zdq_k2eLlR3HlgUApNGejrBNIA",

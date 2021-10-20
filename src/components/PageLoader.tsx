@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 import apiQueries from "../api/apiQueries";
-import { Word } from "../Types/types";
-
-
-const notReachable = (state: never): never => {
-    throw new Error(state);
-};
+import { Word } from "../types/types";
+import {notReachable} from "../utilities/utilities";
+import {LoadingComponent} from "./LoadingComponent";
+import {WordsList} from "./WordsList";
 
 export type State =
     | {
@@ -21,9 +19,9 @@ export type State =
     error: string;
 };
 
-export const PageLoader = () => {
+function useWordsList() {
     const [state, setState] = useState<State>({
-        type: "loading",
+        type: "loading"
     });
 
     const showList = () => {
@@ -42,6 +40,7 @@ export const PageLoader = () => {
                 });
             });
     };
+
     useEffect(() => {
         switch (state.type) {
             case "loading":
@@ -55,19 +54,26 @@ export const PageLoader = () => {
         }
     }, [state]);
 
-    switch (state.type) {
+    const reloadWordsList = () => {
+        setState({
+            type: "loading"
+        })
+    }
+
+    return {state, reloadWordsList}
+}
+
+export const PageLoader = () => {
+
+    switch (useWordsList().state.type) {
         case "loading":
             return (
-                <>
-                    <div>Loading...</div>
-                </>
+                <LoadingComponent/>
             );
 
         case "loaded":
             return (
-                <>
-                    <div>{state.wordsList.length}</div>
-                </>
+                <WordsList wordLength={useWordsList().state.wordsList}/>
             );
 
         case "error":
@@ -79,6 +85,12 @@ export const PageLoader = () => {
             );
 
         default:
-            return notReachable(state);
+            // return notReachable(useWordsList().state.type);
+            return (
+                <>
+                    <div>Server error</div>
+                    <button type="button">Reload data</button>
+                </>
+            );
     }
 };
