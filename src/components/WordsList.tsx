@@ -1,9 +1,18 @@
-import React, {FC} from "react";
+import React from "react";
 
-export const WordsList:FC = () => {
+type Msg = | {
+    type: 'ListIsLoaded'
+}
+
+interface WordsListProps {
+    listLength: number,
+    onMsg: (msg: Msg) => void,
+}
+
+export const WordsList = ({listLength, onMsg}:WordsListProps) => {
     return (
         <>
-            <div>3</div>
+            <div>{listLength}</div>
         </>
     )
 }
