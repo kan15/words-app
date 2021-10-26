@@ -1,18 +1,19 @@
 import React from "react";
+import {Word} from "../types/types";
 
-type Msg = | {
-    type: 'ListIsLoaded'
-}
+type Msg = {
+  type: "ListIsLoaded";
+};
 
-interface WordsListProps {
-    listLength: number,
-    onMsg: (msg: Msg) => void,
-}
+type WordsListProps = {
+  wordsList: Word[];
+  onMsg: (msg: Msg) => void;
+};
 
-export const WordsList = ({listLength, onMsg}:WordsListProps) => {
-    return (
-        <>
-            <div>{listLength}</div>
-        </>
-    )
-}
+export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
+  return (
+    <>
+      <div>{wordsList.length}</div>
+    </>
+  );
+};
