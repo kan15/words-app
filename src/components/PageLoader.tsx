@@ -40,6 +40,6 @@ export const PageLoader = () => {
       );
 
     default:
-      return notReachable(state.type);
+      return notReachable(state);
   }
 };
