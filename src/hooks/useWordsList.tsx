@@ -49,8 +49,6 @@ export const useWordsList = (): {
       case "loaded":
       case "error":
         break;
-      default:
-        return notReachable(state);
     }
   }, [state]);
 

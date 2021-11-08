@@ -1,11 +1,9 @@
 import React from "react";
 import { LoadingComponent } from "./LoadingComponent";
-import { WordsList } from "./WordsList";
 import { useWordsList } from "../hooks/useWordsList";
 import { notReachable } from "../utilities/utilities";
 import { ErrorComponent } from "./ErrorComponent";
-import { AddForm } from "./form/AddForm";
-import apiQueries from "../api/apiQueries";
+import { AppPage } from "./AppPage";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
@@ -17,22 +15,18 @@ export const PageLoader = () => {
     case "loaded":
       return (
         <>
-          <AddForm
-            onMsg={(msg) => {
-              switch (msg.type) {
-                case "AddWordButtonClicked":
-                  apiQueries.addItem(msg.word);
-                  return;
-              }
-            }}
-          />
-          <WordsList
+          <AppPage
             wordsList={state.wordsList}
             onMsg={(msg) => {
               switch (msg.type) {
-                case "ListIsLoaded":
-                  console.log("The list is loaded!");
+                case "NewWordAdded":
+                  reloadWordsList();
                   return;
+                case "ListIsLoaded":
+                  return;
+                // default:
+                //   notReachable(state);
+                //   break;
               }
             }}
           />
@@ -47,6 +41,9 @@ export const PageLoader = () => {
               case "ReloadDataButtonClicked":
                 reloadWordsList();
                 return;
+              // default:
+              //   notReachable(state);
+              //   break;
             }
           }}
         />
