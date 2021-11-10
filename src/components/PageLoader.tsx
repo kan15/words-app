@@ -24,9 +24,9 @@ export const PageLoader = () => {
                   return;
                 case "ListIsLoaded":
                   return;
-                // default:
-                //   notReachable(state);
-                //   break;
+                default:
+                  notReachable(msg);
+                  break;
               }
             }}
           />
@@ -41,9 +41,9 @@ export const PageLoader = () => {
               case "ReloadDataButtonClicked":
                 reloadWordsList();
                 return;
-              // default:
-              //   notReachable(state);
-              //   break;
+              default:
+                notReachable(msg.type);
+                break;
             }
           }}
         />

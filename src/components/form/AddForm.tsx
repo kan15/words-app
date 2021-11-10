@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Translation, Word } from "../../types/types";
 import apiQueries from "../../api/apiQueries";
-import { notReachable } from "../../utilities/utilities";
 import { Input, Button } from "@mui/material";
 
 type AddFormProps = {
@@ -31,6 +30,21 @@ type Msg = {
   word: Translation;
 };
 
+const isDraftValid = (draft: Translation): boolean => {
+  const eng = draft.eng.trim();
+  const rus = draft.rus.trim();
+  const cyrillicRegExpression = /^[а-яА-Я\s]*$/;
+  const latinRegExpression = /^[a-zA-Z\s]*$/;
+  let isValid = null;
+  if (eng.length + rus.length < 2) {
+    isValid = false;
+  } else
+    isValid = !(
+      !cyrillicRegExpression.test(rus) || !latinRegExpression.test(eng)
+    );
+  return isValid;
+};
+
 export const AddForm = ({ wordsList, onMsg }: AddFormProps) => {
   const [state, setState] = useState<State>({
     type: "not_asked",
@@ -44,7 +58,7 @@ export const AddForm = ({ wordsList, onMsg }: AddFormProps) => {
   useEffect(() => {
     switch (state.type) {
       case "loading": {
-        addingNewWord();
+        addingNewWord(state.draft);
         break;
       }
       case "loaded": {
@@ -54,38 +68,16 @@ export const AddForm = ({ wordsList, onMsg }: AddFormProps) => {
         });
         break;
       }
-      default:
-        // notReachable(state);
-        break;
     }
   }, [state]);
 
-  const validationPassed = () => {
-    const eng = draft.eng.trim();
-    const rus = draft.rus.trim();
-    const cyrillicRegExpression = /^[а-яА-Я\s]*$/;
-    const latinRegExpression = /^[a-zA-Z\s]*$/;
-    let isValid = null;
-    if (eng.length + rus.length < 2) {
-      isValid = false;
-    } else
-      isValid = !(
-        !cyrillicRegExpression.test(rus) || !latinRegExpression.test(eng)
-      );
-    return isValid;
-  };
-
-  const addingNewWord = () => {
-    if (validationPassed() && state.type === "loading") {
-      apiQueries
-        .addItem(state.draft)
-        .then(() => {
-          setState({ type: "loaded", word: draft });
-        })
-        .catch((error: Error) => {
-          setState({ type: "error", error: error.message });
-        });
-    }
+  const addingNewWord = (word: Translation) => {
+    apiQueries.addItem(word).then(() => {
+      setState({ type: "loaded", word: word });
+    });
+    // .catch((error: Error) => {
+    //   setState({ type: "error", error: error.message });
+    // });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,10 +89,11 @@ export const AddForm = ({ wordsList, onMsg }: AddFormProps) => {
   };
 
   const handleSubmit = () => {
-    setState({
-      type: "loading",
-      draft: draft,
-    });
+    if (isDraftValid(draft)) {
+      setState({ type: "loading", draft: draft });
+    } else {
+      setState({ type: "error", error: "The word is entered incorrectly" });
+    }
   };
 
   return (
