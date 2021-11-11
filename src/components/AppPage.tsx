@@ -8,6 +8,9 @@ type Msg =
       type: "NewWordAdded";
     }
   | {
+      type: "ReloadWordsListButtonClicked";
+    }
+  | {
       type: "ListIsLoaded";
     };
 
@@ -19,7 +22,7 @@ type AppPageProps = {
 export const AppPage = ({ wordsList, onMsg }: AppPageProps) => {
   return (
     <>
-      <AddForm wordsList={wordsList} onMsg={onMsg} />
+      <AddForm onMsg={onMsg} />
       <WordsList wordsList={wordsList} onMsg={onMsg} />
     </>
   );
