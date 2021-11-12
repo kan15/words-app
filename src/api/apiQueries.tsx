@@ -49,7 +49,7 @@ const apiQueries = {
     });
   },
 
-  addItem(newWord: Translation) {
+  addItem(newWord: Translation): Promise<void> {
     const newWordKey = firebase.database().ref().child("words").push().key;
     const updates: { [index: string]: {} } = {};
     updates[`/words/${newWordKey}`] = newWord;

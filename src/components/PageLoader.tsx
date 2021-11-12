@@ -1,9 +1,9 @@
 import React from "react";
 import { LoadingComponent } from "./LoadingComponent";
-import { WordsList } from "./WordsList";
 import { useWordsList } from "../hooks/useWordsList";
 import { notReachable } from "../utilities/utilities";
 import { ErrorComponent } from "./ErrorComponent";
+import { AppPage } from "./AppPage";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
@@ -14,16 +14,23 @@ export const PageLoader = () => {
 
     case "loaded":
       return (
-        <WordsList
-          wordsList={state.wordsList}
-          onMsg={(msg) => {
-            switch (msg.type) {
-              case "ListIsLoaded":
-                console.log("The list is loaded!");
-                return;
-            }
-          }}
-        />
+        <>
+          <AppPage
+            wordsList={state.wordsList}
+            onMsg={(msg) => {
+              switch (msg.type) {
+                case "NewWordAdded":
+                  reloadWordsList();
+                  return;
+                case "ListIsLoaded":
+                  return;
+                default:
+                  notReachable(msg);
+                  break;
+              }
+            }}
+          />
+        </>
       );
 
     case "error":
@@ -34,6 +41,9 @@ export const PageLoader = () => {
               case "ReloadDataButtonClicked":
                 reloadWordsList();
                 return;
+              default:
+                notReachable(msg.type);
+                break;
             }
           }}
         />
