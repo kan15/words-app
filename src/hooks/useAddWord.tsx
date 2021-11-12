@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Translation } from "../types/types";
 import apiQueries from "../api/apiQueries";
+import { notReachable } from "../utilities/utilities";
 
 export type State =
   | {
@@ -17,13 +18,9 @@ export type State =
   | {
       type: "error";
       error: string;
-    }
-  | {
-      type: "not_requested";
-      error: string;
     };
 
-const isDraftValid = (draft: Translation): boolean => {
+export const isDraftValid = (draft: Translation): boolean => {
   const eng = draft.eng.trim();
   const rus = draft.rus.trim();
   const cyrillicRegExpression = /^[а-яА-Я\s]*$/;
@@ -38,19 +35,31 @@ const isDraftValid = (draft: Translation): boolean => {
   return isValid;
 };
 
-export const useAddWord = (): {
+type ReturnType = {
   state: State;
   addWord: (word: Translation) => void;
-} => {
+  setError: (error: string) => void;
+};
+
+export const useAddWord = (): ReturnType => {
   const [state, setState] = useState<State>({
     type: "not_asked",
   });
 
   useEffect(() => {
     switch (state.type) {
+      case "not_asked":
+        break;
+      case "loaded":
+        break;
+      case "error":
+        break;
       case "loading": {
         addingNewWord(state.draft);
         break;
+      }
+      default: {
+        return notReachable(state);
       }
     }
   }, [state]);
@@ -62,17 +71,16 @@ export const useAddWord = (): {
         setState({ type: "loaded", word: word });
       })
       .catch((error: Error) => {
-        setState({ type: "not_requested", error: error.message });
+        setState({ type: "error", error: error.message });
       });
   };
 
   const addWord = (word: Translation) => {
-    if (isDraftValid(word)) {
-      setState({ type: "loading", draft: word });
-    } else {
-      setState({ type: "error", error: "The word is entered incorrectly" });
-    }
+    setState({ type: "loading", draft: word });
   };
 
-  return { state, addWord };
+  const setError = (error: string): void => {
+    setState({ type: "error", error: error });
+  };
+  return { state, addWord, setError };
 };

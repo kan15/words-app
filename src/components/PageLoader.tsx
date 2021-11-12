@@ -19,7 +19,6 @@ export const PageLoader = () => {
             wordsList={state.wordsList}
             onMsg={(msg) => {
               switch (msg.type) {
-                case "ReloadWordsListButtonClicked":
                 case "NewWordAdded":
                   reloadWordsList();
                   return;

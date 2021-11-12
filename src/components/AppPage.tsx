@@ -8,9 +8,6 @@ type Msg =
       type: "NewWordAdded";
     }
   | {
-      type: "ReloadWordsListButtonClicked";
-    }
-  | {
       type: "ListIsLoaded";
     };
 
