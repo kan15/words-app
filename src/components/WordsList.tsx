@@ -7,11 +7,14 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 
-type Msg = {
-  type: "ListIsLoaded";
-};
+type Msg =
+  | {
+      type: "ListIsLoaded";
+    }
+  | {
+      type: "WordDeleted";
+    };
 
 type WordsListProps = {
   wordsList: Word[];
@@ -32,7 +35,12 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
           </TableHead>
           <TableBody>
             {wordsList.map((word: Word, index: number) => (
-              <WordItem key={word.key} word={word} index={index + 1} />
+              <WordItem
+                key={word.key}
+                word={word}
+                index={index + 1}
+                onMsg={onMsg}
+              />
             ))}
           </TableBody>
         </Table>

@@ -9,6 +9,9 @@ type Msg =
     }
   | {
       type: "ListIsLoaded";
+    }
+  | {
+      type: "WordDeleted";
     };
 
 type AppPageProps = {
