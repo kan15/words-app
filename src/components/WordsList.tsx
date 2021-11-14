@@ -32,7 +32,7 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
           </TableHead>
           <TableBody>
             {wordsList.map((word: Word, index: number) => (
-              <WordItem word={word} index={index + 1} />
+              <WordItem key={word.key} word={word} index={index + 1} />
             ))}
           </TableBody>
         </Table>

@@ -10,7 +10,7 @@ type WordItemProps = {
 
 export const WordItem = ({ word, index }: WordItemProps) => {
   return (
-    <TableRow key={word.key}>
+    <TableRow>
       <TableCell component="th" scope="row">
         {index}
       </TableCell>
