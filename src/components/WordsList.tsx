@@ -8,13 +8,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-type Msg =
-  | {
-      type: "ListIsLoaded";
-    }
-  | {
-      type: "WordDeleted";
-    };
+type Msg = {
+  type: "WordDeleted";
+};
 
 type WordsListProps = {
   wordsList: Word[];

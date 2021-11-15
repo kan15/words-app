@@ -4,6 +4,7 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { MdDeleteForever } from "react-icons/md";
 import apiQueries from "../api/apiQueries";
+import Button from "@mui/material/Button";
 
 type Msg = {
   type: "WordDeleted";
@@ -24,14 +25,16 @@ export const WordItem = ({ word, index, onMsg }: WordItemProps) => {
       <TableCell>{word.eng}</TableCell>
       <TableCell>{word.rus}</TableCell>
       <TableCell>
-        <button
+        <Button
+          variant="contained"
+          color="error"
           onClick={(e) => {
             apiQueries.deleteItem(word);
             onMsg({ type: "WordDeleted" });
           }}
         >
           <MdDeleteForever />
-        </button>
+        </Button>
       </TableCell>
     </TableRow>
   );
