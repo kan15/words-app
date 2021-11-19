@@ -12,6 +12,9 @@ type Msg =
     }
   | {
       type: "WordDeleted";
+    }
+  | {
+      type: "WordUpdated";
     };
 
 type AppPageProps = {

@@ -21,6 +21,7 @@ export const PageLoader = () => {
               switch (msg.type) {
                 case "NewWordAdded":
                 case "WordDeleted":
+                case "WordUpdated":
                   reloadWordsList();
                   return;
                 case "ListIsLoaded":
