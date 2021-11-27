@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/words-app/static/js/main.b674331b.chunk.js",
+    "main.js.map": "/words-app/static/js/main.b674331b.chunk.js.map",
+    "runtime-main.js": "/words-app/static/js/runtime-main.0cc48bbd.js",
+    "runtime-main.js.map": "/words-app/static/js/runtime-main.0cc48bbd.js.map",
+    "static/js/2.262ae7bc.chunk.js": "/words-app/static/js/2.262ae7bc.chunk.js",
+    "static/js/2.262ae7bc.chunk.js.map": "/words-app/static/js/2.262ae7bc.chunk.js.map",
+    "static/js/3.1bebbe6a.chunk.js": "/words-app/static/js/3.1bebbe6a.chunk.js",
+    "static/js/3.1bebbe6a.chunk.js.map": "/words-app/static/js/3.1bebbe6a.chunk.js.map",
+    "index.html": "/words-app/index.html",
+    "static/js/2.262ae7bc.chunk.js.LICENSE.txt": "/words-app/static/js/2.262ae7bc.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0cc48bbd.js",
+    "static/js/2.262ae7bc.chunk.js",
+    "static/js/main.b674331b.chunk.js"
+  ]
+}
