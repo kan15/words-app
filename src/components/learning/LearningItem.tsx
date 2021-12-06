@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TextField from "@mui/material/TextField";
@@ -16,21 +16,19 @@ type Msg = {
 };
 
 export const LearningItem = ({ word, index, onMsg }: LearningItemProps) => {
-  const [draft, setDraft] = useState<LearningWord>({
-    id: word.id,
-    show: word.show,
-    hide: "",
-  });
+  const [draft, setDraft] = useState<LearningWord>(word);
+
+  useEffect(() => {
+    onMsg({ type: "UserEnteredWord", wordFromUser: draft });
+  }, [draft]);
 
   const submitChange = (e: React.FocusEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setDraft({
-      ...draft,
-      hide: value,
-    });
-    console.log("Draft на данный момент:");
-    console.log(draft);
-    onMsg({ type: "UserEnteredWord", wordFromUser: draft });
+    value !== draft.userInput &&
+      setDraft({
+        ...draft,
+        userInput: value,
+      });
   };
 
   return (

@@ -13,12 +13,10 @@ export type LearningWord = {
   id: string;
   show: string;
   hide: string;
+  userInput: string;
 };
 
-type StateLearningWords = {
-  dataWords: [] | LearningWord[];
-  receivedWords: [] | LearningWord[];
-};
+type StateLearningWords = [] | LearningWord[];
 
 type StateLearningPage =
   | {
@@ -38,17 +36,14 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
     type: "getting_user_data",
   });
   const [stateLearningWords, setStateLearningWords] =
-    useState<StateLearningWords>({ dataWords: [], receivedWords: [] });
+    useState<StateLearningWords>([]);
 
   useEffect(() => {
     switch (stateLearning.type) {
       case "getting_user_data":
         break;
       case "got_user_data":
-        setStateLearningWords({
-          dataWords: learningWordsForUser(stateLearning.data),
-          receivedWords: [],
-        });
+        setStateLearningWords(learningWordsForUser(stateLearning.data));
         break;
       case "error":
         break;
@@ -71,6 +66,7 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
         id: uuidv4(),
         show: userData.label === "RU" ? word.rus : word.eng,
         hide: userData.label === "RU" ? word.eng : word.rus,
+        userInput: "",
       };
     });
     console.log("Изучаемый массив слов:");
@@ -79,21 +75,10 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
   };
 
   const addOneUserWordToState = (word: LearningWord) => {
-    console.log(`Пришло слово в addOneUserWordToState:`);
-    console.log(word);
-    const dataArray = [...stateLearningWords.dataWords];
-    const receivedArray = [...stateLearningWords.receivedWords];
-    const index = receivedArray.findIndex((el) => el.id === word.id);
-    index === -1 ? receivedArray.push(word) : (receivedArray[index] = word);
-
-    console.log(`Видно, что в массив новое слово добавилось:`);
-    console.log(receivedArray);
-    setStateLearningWords({
-      dataWords: dataArray,
-      receivedWords: receivedArray,
-    });
-    console.log(`Но в стейт новое слово не добавляется сразу:`);
-    console.log(stateLearningWords);
+    const newStateLearningWords = [...stateLearningWords];
+    const index = newStateLearningWords.findIndex((el) => el.id === word.id);
+    newStateLearningWords[index] = word;
+    setStateLearningWords(newStateLearningWords);
   };
 
   switch (stateLearning.type) {
@@ -121,7 +106,7 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
           {
             <LearningList
               labelTable={stateLearning.data.label}
-              learningWordsForUser={stateLearningWords.dataWords}
+              learningWords={stateLearningWords}
               onMsg={(msg) => {
                 switch (msg.type) {
                   case "UserEnteredWord":

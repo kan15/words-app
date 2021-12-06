@@ -12,7 +12,7 @@ import { LearningWord } from "./LearningPageLoader";
 
 type LearningListProps = {
   labelTable: string | Languages;
-  learningWordsForUser: LearningWord[];
+  learningWords: LearningWord[];
   onMsg: (msg: Msg) => void;
 };
 
@@ -23,7 +23,7 @@ type Msg = {
 
 export const LearningList = ({
   labelTable,
-  learningWordsForUser,
+  learningWords,
   onMsg,
 }: LearningListProps) => {
   return (
@@ -42,7 +42,7 @@ export const LearningList = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {learningWordsForUser.map((word: LearningWord, index: number) => {
+            {learningWords.map((word: LearningWord, index: number) => {
               return (
                 <LearningItem
                   key={word.id}
