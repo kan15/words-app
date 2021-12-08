@@ -12,18 +12,22 @@ type Msg = {
   type: "WordUpdated";
 };
 
+type WordsListMsg = {
+  type: "CancelChange";
+};
+
 type WordItemProps = {
   word: Word;
   index: number;
-  setEditableWord: (word: null | Word) => void;
   onMsg: (msg: Msg) => void;
+  onWordsListMsg: (msg: WordsListMsg) => void;
 };
 
 export const EditableWord = ({
   word,
   index,
-  setEditableWord,
   onMsg,
+  onWordsListMsg,
 }: WordItemProps) => {
   const [draftEditableWord, setDraftEditableWord] = useState<Word>(word);
 
@@ -75,7 +79,7 @@ export const EditableWord = ({
           variant="contained"
           color="error"
           onClick={(e) => {
-            setEditableWord(null);
+            onWordsListMsg({ type: "CancelChange" });
           }}
         >
           <GiCancel />

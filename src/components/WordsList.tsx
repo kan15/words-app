@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Word } from "../types/types";
 import { WordItem } from "./WordItem";
-import { EditableWord } from "./EditableWord";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -15,6 +14,15 @@ type Msg =
     }
   | {
       type: "WordUpdated";
+    };
+
+type WordsListMsg =
+  | {
+      type: "ChangeThisWord";
+      word: Word;
+    }
+  | {
+      type: "CancelChange";
     };
 
 type WordsListProps = {
@@ -38,21 +46,23 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
           </TableHead>
           <TableBody>
             {wordsList.map((word: Word, index: number) => {
-              return word === editableWord ? (
-                <EditableWord
-                  key={word.key}
-                  word={word}
-                  index={index + 1}
-                  setEditableWord={setEditableWord}
-                  onMsg={onMsg}
-                />
-              ) : (
+              return (
                 <WordItem
                   key={word.key}
                   word={word}
                   index={index + 1}
                   onMsg={onMsg}
-                  setEditableWord={setEditableWord}
+                  editableWord={editableWord}
+                  onWordsListMsg={(msg: WordsListMsg) => {
+                    switch (msg.type) {
+                      case "ChangeThisWord":
+                        setEditableWord(word);
+                        break;
+                      case "CancelChange":
+                        setEditableWord(null);
+                        break;
+                    }
+                  }}
                 />
               );
             })}

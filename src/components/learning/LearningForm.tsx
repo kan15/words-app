@@ -30,12 +30,6 @@ export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
   const [typeStudy, setTypeStudy] = useState<Languages | string>("ENG");
   const [amountWords, setAmountWords] = useState<number>(0);
 
-  const handleChangeLangInput = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setTypeStudy(event.target.value);
-  };
-
   const handleChangeNumberInput = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -55,12 +49,17 @@ export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
   };
 
   return (
-    <form method="get" onSubmit={handleSubmit}>
+    <form
+      method="get"
+      onSubmit={handleSubmit}
+    >
       <TextField
         select
         label="Select"
         value={typeStudy}
-        onChange={handleChangeLangInput}
+        onChange={(event) => {
+          setTypeStudy(event.target.value);
+        }}
         helperText="Please select your type"
       >
         {studyTypes.map((option) => (
@@ -86,7 +85,7 @@ export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            handleSubmit();
+            // handleSubmit();
           }}
         >
           Start Learning
