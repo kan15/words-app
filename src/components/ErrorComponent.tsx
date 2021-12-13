@@ -2,10 +2,10 @@ import React from "react";
 
 type ErrorComponentProps = {
   onMsg: (msg: Msg) => void;
-}
+};
 
 type Msg = {
-  type: "ReloadDataButtonClicked";
+  type: "reload_data_button_clicked";
 };
 
 export const ErrorComponent = ({ onMsg }: ErrorComponentProps) => {
@@ -16,7 +16,7 @@ export const ErrorComponent = ({ onMsg }: ErrorComponentProps) => {
         title="Reload data"
         type="button"
         onClick={() => {
-          onMsg({ type: "ReloadDataButtonClicked" });
+          onMsg({ type: "reload_data_button_clicked" });
         }}
       >
         Reload data

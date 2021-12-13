@@ -11,7 +11,7 @@ type LearningItemProps = {
 };
 
 type Msg = {
-  type: "UserEnteredWord";
+  type: "user_entered_word";
   wordFromUser: LearningWord;
 };
 
@@ -19,7 +19,7 @@ export const LearningItem = ({ word, index, onMsg }: LearningItemProps) => {
   const [draft, setDraft] = useState<LearningWord>(word);
 
   useEffect(() => {
-    onMsg({ type: "UserEnteredWord", wordFromUser: draft });
+    onMsg({ type: "user_entered_word", wordFromUser: draft });
   }, [draft]);
 
   const submitChange = (e: React.FocusEvent<HTMLInputElement>) => {

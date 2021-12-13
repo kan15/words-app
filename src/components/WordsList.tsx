@@ -1,28 +1,29 @@
 import React, { useState } from "react";
 import { Word } from "../types/types";
-import { WordItem } from "./WordItem";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { EditableWord } from "./EditableWord";
+import { WordItem } from "./WordItem";
 
 type Msg =
   | {
-      type: "WordDeleted";
+      type: "word_deleted";
     }
   | {
-      type: "WordUpdated";
+      type: "word_updated";
     };
 
 type WordsListMsg =
   | {
-      type: "ChangeThisWord";
+      type: "change_this_word";
       word: Word;
     }
   | {
-      type: "CancelChange";
+      type: "cancel_change";
     };
 
 type WordsListProps = {
@@ -46,20 +47,30 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
           </TableHead>
           <TableBody>
             {wordsList.map((word: Word, index: number) => {
-              return (
+              return word === editableWord ? (
+                <EditableWord
+                  key={word.key}
+                  word={word}
+                  index={index + 1}
+                  onMsg={onMsg}
+                  onWordsListMsg={(msg: WordsListMsg) => {
+                    switch (msg.type) {
+                      case "cancel_change":
+                        setEditableWord(null);
+                        break;
+                    }
+                  }}
+                />
+              ) : (
                 <WordItem
                   key={word.key}
                   word={word}
                   index={index + 1}
                   onMsg={onMsg}
-                  editableWord={editableWord}
                   onWordsListMsg={(msg: WordsListMsg) => {
                     switch (msg.type) {
-                      case "ChangeThisWord":
+                      case "change_this_word":
                         setEditableWord(word);
-                        break;
-                      case "CancelChange":
-                        setEditableWord(null);
                         break;
                     }
                   }}

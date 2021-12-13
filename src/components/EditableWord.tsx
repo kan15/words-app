@@ -9,11 +9,11 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 type Msg = {
-  type: "WordUpdated";
+  type: "word_updated";
 };
 
 type WordsListMsg = {
-  type: "CancelChange";
+  type: "cancel_change";
 };
 
 type WordItemProps = {
@@ -70,7 +70,7 @@ export const EditableWord = ({
           color="success"
           onClick={(e) => {
             apiQueries.updateItem(draftEditableWord);
-            onMsg({ type: "WordUpdated" });
+            onMsg({ type: "word_updated" });
           }}
         >
           <MdDone />
@@ -79,7 +79,7 @@ export const EditableWord = ({
           variant="contained"
           color="error"
           onClick={(e) => {
-            onWordsListMsg({ type: "CancelChange" });
+            onWordsListMsg({ type: "cancel_change" });
           }}
         >
           <GiCancel />

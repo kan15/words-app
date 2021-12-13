@@ -1,10 +1,10 @@
 import React from "react";
-import { DataLearningList, Languages, Translation } from "../../types/types";
+import { DataLearningList, Language, Translation } from "../../types/types";
 import { LearningForm } from "./LearningForm";
 
 type Msg = {
-  type: "StartLearning";
-  label: Languages | string;
+  type: "start_learning";
+  label: Language;
   amount: number;
 };
 

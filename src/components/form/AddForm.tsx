@@ -9,7 +9,7 @@ type AddFormProps = {
 };
 
 type Msg = {
-  type: "NewWordAdded";
+  type: "new_word_added";
   word: Translation;
 };
 
@@ -25,7 +25,7 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
     switch (state.type) {
       case "loaded": {
         onMsg({
-          type: "NewWordAdded",
+          type: "new_word_added",
           word: state.word,
         });
         break;

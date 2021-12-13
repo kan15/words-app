@@ -9,9 +9,9 @@ export type Word = Translation & {
   key: string;
 };
 
-export type Languages = "RU" | "ENG";
+export type Language = "RU" | "ENG";
 
 export type DataLearningList = {
-  label: Languages | string;
+  label: Language;
   amount: number;
 };

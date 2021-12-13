@@ -5,16 +5,16 @@ import { WordsList } from "./WordsList";
 
 type Msg =
   | {
-      type: "NewWordAdded";
+      type: "new_word_added";
     }
   | {
-      type: "ListIsLoaded";
+      type: "list_is_loaded";
     }
   | {
-      type: "WordDeleted";
+      type: "word_deleted";
     }
   | {
-      type: "WordUpdated";
+      type: "word_updated";
     };
 
 type AppPageProps = {

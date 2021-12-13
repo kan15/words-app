@@ -16,7 +16,7 @@ export type LearningWord = {
   userInput: string;
 };
 
-type StateLearningWords = [] | LearningWord[];
+type StateLearningWords = LearningWord[];
 
 type StateLearningPage =
   | {
@@ -89,7 +89,7 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
             allWordsArray={allWordsArray}
             onMsg={(msg) => {
               switch (msg.type) {
-                case "StartLearning":
+                case "start_learning":
                   setStateLearning({
                     type: "got_user_data",
                     data: { label: msg.label, amount: msg.amount },
@@ -109,7 +109,7 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
               learningWords={stateLearningWords}
               onMsg={(msg) => {
                 switch (msg.type) {
-                  case "UserEnteredWord":
+                  case "user_entered_word":
                     addOneUserWordToState(msg.wordFromUser);
                 }
               }}

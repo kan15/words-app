@@ -29,12 +29,12 @@ export const PageLoader = () => {
                   wordsList={state.wordsList}
                   onMsg={(msg) => {
                     switch (msg.type) {
-                      case "NewWordAdded":
-                      case "WordDeleted":
-                      case "WordUpdated":
+                      case "new_word_added":
+                      case "word_deleted":
+                      case "word_updated":
                         reloadWordsList();
                         return;
-                      case "ListIsLoaded":
+                      case "list_is_loaded":
                         return;
                       default:
                         notReachable(msg);
@@ -57,7 +57,7 @@ export const PageLoader = () => {
         <ErrorComponent
           onMsg={(msg) => {
             switch (msg.type) {
-              case "ReloadDataButtonClicked":
+              case "reload_data_button_clicked":
                 reloadWordsList();
                 return;
               default:

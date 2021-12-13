@@ -1,6 +1,6 @@
 import React from "react";
 // import { DataLearningList } from "./LearningPageLoader";
-import { Languages, Translation } from "../../types/types";
+import { Language, Translation } from "../../types/types";
 import { LearningItem } from "./LearningItem";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
@@ -11,13 +11,13 @@ import TableBody from "@mui/material/TableBody";
 import { LearningWord } from "./LearningPageLoader";
 
 type LearningListProps = {
-  labelTable: string | Languages;
+  labelTable: Language;
   learningWords: LearningWord[];
   onMsg: (msg: Msg) => void;
 };
 
 type Msg = {
-  type: "UserEnteredWord";
+  type: "user_entered_word";
   wordFromUser: LearningWord;
 };
 

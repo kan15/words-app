@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import { Languages, Translation } from "../../types/types";
+import { Language, Translation } from "../../types/types";
 
 const studyTypes = [
   {
@@ -16,8 +17,8 @@ const studyTypes = [
 ];
 
 type Msg = {
-  type: "StartLearning";
-  label: Languages | string;
+  type: "start_learning";
+  label: Language;
   amount: number;
 };
 
@@ -27,7 +28,7 @@ type LearningFormProps = {
 };
 
 export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
-  const [typeStudy, setTypeStudy] = useState<Languages | string>("ENG");
+  const [typeStudy, setTypeStudy] = useState<Language>("ENG");
   const [amountWords, setAmountWords] = useState<number>(0);
 
   const handleChangeNumberInput = (
@@ -40,34 +41,33 @@ export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
     }
   };
 
-  const handleSubmit = () => {
-    onMsg({
-      type: "StartLearning",
-      label: typeStudy,
-      amount: amountWords,
-    });
-  };
-
   return (
     <form
       method="get"
-      onSubmit={handleSubmit}
+      onSubmit={(e) => {
+        onMsg({
+          type: "start_learning",
+          label: typeStudy,
+          amount: amountWords,
+        });
+        e.preventDefault();
+      }}
     >
-      <TextField
-        select
-        label="Select"
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
         value={typeStudy}
+        label="Language"
         onChange={(event) => {
-          setTypeStudy(event.target.value);
+          setTypeStudy(event.target.value as Language);
         }}
-        helperText="Please select your type"
       >
         {studyTypes.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
-      </TextField>
+      </Select>
       <TextField
         id="outlined-number"
         InputProps={{ inputProps: { min: 1 } }}
@@ -79,15 +79,7 @@ export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
         onChange={handleChangeNumberInput}
       />
       {amountWords ? (
-        <Button
-          id="startLearningBtn"
-          variant="contained"
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            // handleSubmit();
-          }}
-        >
+        <Button id="startLearningBtn" variant="contained" type="submit">
           Start Learning
         </Button>
       ) : null}
