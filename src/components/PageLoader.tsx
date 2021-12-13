@@ -1,9 +1,11 @@
 import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import { LoadingComponent } from "./LoadingComponent";
 import { useWordsList } from "../hooks/useWordsList";
 import { notReachable } from "../utilities/utilities";
 import { ErrorComponent } from "./ErrorComponent";
 import { AppPage } from "./AppPage";
+import { LearningPageLoader } from "./learning/LearningPageLoader";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
@@ -15,22 +17,38 @@ export const PageLoader = () => {
     case "loaded":
       return (
         <>
-          <AppPage
-            wordsList={state.wordsList}
-            onMsg={(msg) => {
-              switch (msg.type) {
-                case "NewWordAdded":
-                case "WordDeleted":
-                  reloadWordsList();
-                  return;
-                case "ListIsLoaded":
-                  return;
-                default:
-                  notReachable(msg);
-                  break;
+          <header>
+            <Link to="/">Home</Link>
+            <Link to="/learning">Start learning</Link>
+          </header>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <AppPage
+                  wordsList={state.wordsList}
+                  onMsg={(msg) => {
+                    switch (msg.type) {
+                      case "new_word_added":
+                      case "word_deleted":
+                      case "word_updated":
+                        reloadWordsList();
+                        return;
+                      case "list_is_loaded":
+                        return;
+                      default:
+                        notReachable(msg);
+                        break;
+                    }
+                  }}
+                />
               }
-            }}
-          />
+            />
+            <Route
+              path="/learning"
+              element={<LearningPageLoader wordsList={state.wordsList} />}
+            />
+          </Routes>
         </>
       );
 
@@ -39,7 +57,7 @@ export const PageLoader = () => {
         <ErrorComponent
           onMsg={(msg) => {
             switch (msg.type) {
-              case "ReloadDataButtonClicked":
+              case "reload_data_button_clicked":
                 reloadWordsList();
                 return;
               default:
