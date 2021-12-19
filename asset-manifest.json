@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/words-app/static/js/main.647a2583.chunk.js",
-    "main.js.map": "/words-app/static/js/main.647a2583.chunk.js.map",
-    "runtime-main.js": "/words-app/static/js/runtime-main.eb376108.js",
-    "runtime-main.js.map": "/words-app/static/js/runtime-main.eb376108.js.map",
-    "static/js/2.a86fdf84.chunk.js": "/words-app/static/js/2.a86fdf84.chunk.js",
-    "static/js/2.a86fdf84.chunk.js.map": "/words-app/static/js/2.a86fdf84.chunk.js.map",
-    "static/js/3.fe3acee3.chunk.js": "/words-app/static/js/3.fe3acee3.chunk.js",
-    "static/js/3.fe3acee3.chunk.js.map": "/words-app/static/js/3.fe3acee3.chunk.js.map",
+    "main.js": "/words-app/static/js/main.6785bb98.chunk.js",
+    "main.js.map": "/words-app/static/js/main.6785bb98.chunk.js.map",
+    "runtime-main.js": "/words-app/static/js/runtime-main.cc44ede8.js",
+    "runtime-main.js.map": "/words-app/static/js/runtime-main.cc44ede8.js.map",
+    "static/js/2.c2aa1b28.chunk.js": "/words-app/static/js/2.c2aa1b28.chunk.js",
+    "static/js/2.c2aa1b28.chunk.js.map": "/words-app/static/js/2.c2aa1b28.chunk.js.map",
+    "static/js/3.7bbc69b6.chunk.js": "/words-app/static/js/3.7bbc69b6.chunk.js",
+    "static/js/3.7bbc69b6.chunk.js.map": "/words-app/static/js/3.7bbc69b6.chunk.js.map",
     "index.html": "/words-app/index.html",
-    "static/js/2.a86fdf84.chunk.js.LICENSE.txt": "/words-app/static/js/2.a86fdf84.chunk.js.LICENSE.txt"
+    "static/js/2.c2aa1b28.chunk.js.LICENSE.txt": "/words-app/static/js/2.c2aa1b28.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.eb376108.js",
-    "static/js/2.a86fdf84.chunk.js",
-    "static/js/main.647a2583.chunk.js"
+    "static/js/runtime-main.cc44ede8.js",
+    "static/js/2.c2aa1b28.chunk.js",
+    "static/js/main.6785bb98.chunk.js"
   ]
 }
