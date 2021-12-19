@@ -4,6 +4,8 @@ import { LearningForm } from "./LearningForm";
 import { LearningList } from "./LearningList";
 import { v4 as uuidv4 } from "uuid";
 import { notReachable } from "../../utilities/utilities";
+import { LearningCheckingButtons } from "./LearningCheckingButtons";
+import { LearningResult } from "./LearningResult";
 
 type LearningPageLoaderProps = {
   wordsList: Word[];
@@ -14,6 +16,11 @@ export type LearningWord = {
   show: string;
   hide: string;
   userInput: string;
+};
+
+export type StateResult = {
+  id: string;
+  isCorrect: boolean;
 };
 
 type StateLearningWords = LearningWord[];
@@ -27,6 +34,9 @@ type StateLearningPage =
       data: DataLearningList;
     }
   | {
+      type: "show_result";
+    }
+  | {
       type: "error";
       error: string;
     };
@@ -37,6 +47,11 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
   });
   const [stateLearningWords, setStateLearningWords] =
     useState<StateLearningWords>([]);
+
+  const [result, setResult] = useState<StateResult[]>([]);
+
+  const [correctButtonIsClicked, setCorrectButtonIsClicked] =
+    useState<boolean>(false);
 
   useEffect(() => {
     switch (stateLearning.type) {
@@ -69,8 +84,6 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
         userInput: "",
       };
     });
-    console.log("Изучаемый массив слов:");
-    console.log(wordArrayUnderStudy);
     return wordArrayUnderStudy;
   };
 
@@ -79,6 +92,19 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
     const index = newStateLearningWords.findIndex((el) => el.id === word.id);
     newStateLearningWords[index] = word;
     setStateLearningWords(newStateLearningWords);
+    console.log(newStateLearningWords);
+  };
+
+  const checkResult = (arr: LearningWord[]) => {
+    console.log(arr);
+    const a = arr.map((word) => {
+      return {
+        id: word.id,
+        isCorrect: word.hide === word.userInput,
+      };
+    });
+    console.log(a);
+    return a;
   };
 
   switch (stateLearning.type) {
@@ -94,6 +120,7 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
                     type: "got_user_data",
                     data: { label: msg.label, amount: msg.amount },
                   });
+                //TODO: notReacheble here
               }
             }}
           />
@@ -103,20 +130,47 @@ export const LearningPageLoader = ({ wordsList }: LearningPageLoaderProps) => {
     case "got_user_data":
       return (
         <>
-          {
-            <LearningList
-              labelTable={stateLearning.data.label}
-              learningWords={stateLearningWords}
-              onMsg={(msg) => {
-                switch (msg.type) {
-                  case "user_entered_word":
-                    addOneUserWordToState(msg.wordFromUser);
-                }
-              }}
-            />
-          }
+          <LearningList
+            labelTable={stateLearning.data.label}
+            learningWords={stateLearningWords}
+            result={result}
+            correctButtonIsClicked={correctButtonIsClicked}
+            onMsg={(msg) => {
+              switch (msg.type) {
+                case "check_user_words":
+                  // TODO: check it
+                  break;
+                case "user_entered_word":
+                  addOneUserWordToState(msg.wordFromUser);
+                  break;
+                default:
+                  notReachable(msg);
+                  break;
+              }
+            }}
+          />
+          <LearningCheckingButtons
+            result={result}
+            correctButtonIsClicked={correctButtonIsClicked}
+            onMsg={(msg) => {
+              switch (msg.type) {
+                case "check_user_words":
+                  setCorrectButtonIsClicked(false);
+                  setResult(checkResult(stateLearningWords));
+                  break;
+                case "correct_user_words":
+                  setCorrectButtonIsClicked(true);
+                  break;
+                case "show_result":
+                  setStateLearning({ type: "show_result" });
+                //TODO: notReacheble here
+              }
+            }}
+          />
         </>
       );
+    case "show_result":
+      return <LearningResult result={result} />;
     case "error":
       return <></>;
   }

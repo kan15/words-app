@@ -1,6 +1,6 @@
 import React from "react";
 // import { DataLearningList } from "./LearningPageLoader";
-import { Language, Translation } from "../../types/types";
+import { Language } from "../../types/types";
 import { LearningItem } from "./LearningItem";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
@@ -8,23 +8,31 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import { LearningWord } from "./LearningPageLoader";
+import { LearningWord, StateResult } from "./LearningPageLoader";
 
 type LearningListProps = {
   labelTable: Language;
   learningWords: LearningWord[];
   onMsg: (msg: Msg) => void;
+  result: StateResult[];
+  correctButtonIsClicked: boolean;
 };
 
-type Msg = {
-  type: "user_entered_word";
-  wordFromUser: LearningWord;
-};
+type Msg =
+  | {
+      type: "user_entered_word";
+      wordFromUser: LearningWord;
+    }
+  | {
+      type: "check_user_words";
+    };
 
 export const LearningList = ({
   labelTable,
   learningWords,
   onMsg,
+  result,
+  correctButtonIsClicked,
 }: LearningListProps) => {
   return (
     <>
@@ -49,6 +57,8 @@ export const LearningList = ({
                   word={word}
                   index={index}
                   onMsg={onMsg}
+                  result={result}
+                  correctButtonIsClicked={correctButtonIsClicked}
                 />
               );
             })}
