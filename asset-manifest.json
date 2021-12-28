@@ -1,19 +1,12 @@
 {
   "files": {
-    "main.js": "/words-app/static/js/main.6785bb98.chunk.js",
-    "main.js.map": "/words-app/static/js/main.6785bb98.chunk.js.map",
-    "runtime-main.js": "/words-app/static/js/runtime-main.cc44ede8.js",
-    "runtime-main.js.map": "/words-app/static/js/runtime-main.cc44ede8.js.map",
-    "static/js/2.c2aa1b28.chunk.js": "/words-app/static/js/2.c2aa1b28.chunk.js",
-    "static/js/2.c2aa1b28.chunk.js.map": "/words-app/static/js/2.c2aa1b28.chunk.js.map",
-    "static/js/3.7bbc69b6.chunk.js": "/words-app/static/js/3.7bbc69b6.chunk.js",
-    "static/js/3.7bbc69b6.chunk.js.map": "/words-app/static/js/3.7bbc69b6.chunk.js.map",
+    "main.js": "/words-app/static/js/main.f7038108.js",
+    "static/js/787.24ac49e9.chunk.js": "/words-app/static/js/787.24ac49e9.chunk.js",
     "index.html": "/words-app/index.html",
-    "static/js/2.c2aa1b28.chunk.js.LICENSE.txt": "/words-app/static/js/2.c2aa1b28.chunk.js.LICENSE.txt"
+    "main.f7038108.js.map": "/words-app/static/js/main.f7038108.js.map",
+    "787.24ac49e9.chunk.js.map": "/words-app/static/js/787.24ac49e9.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.cc44ede8.js",
-    "static/js/2.c2aa1b28.chunk.js",
-    "static/js/main.6785bb98.chunk.js"
+    "static/js/main.f7038108.js"
   ]
 }
