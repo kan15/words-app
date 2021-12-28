@@ -3,42 +3,46 @@ import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import { Language, Translation } from "../../types/types";
+import { Language } from "../../types/types";
 
 const studyTypes = [
   {
-    value: "ENG",
+    value: "RU",
     label: "ENG-RU",
   },
   {
-    value: "RU",
+    value: "ENG",
     label: "RU-ENG",
   },
 ];
+type FormData = {
+  language: Language;
+  amountOfWords: number;
+};
 
 type Msg = {
-  type: "start_learning";
-  label: Language;
-  amount: number;
+  type: "on_form_submitted";
+  data: FormData;
 };
 
 type LearningFormProps = {
-  allWordsArray: Translation[];
   onMsg: (msg: Msg) => void;
 };
 
-export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
-  const [typeStudy, setTypeStudy] = useState<Language>("ENG");
-  const [amountWords, setAmountWords] = useState<number>(0);
+export const LearningForm = ({ onMsg }: LearningFormProps) => {
+  const [state, setState] = useState<FormData>({
+    language: "RU",
+    amountOfWords: 0,
+  });
 
   const handleChangeNumberInput = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    event.target.value && setAmountWords(+event.target.value);
-    if (+event.target.value > allWordsArray.length) {
-      event.target.value = allWordsArray.length.toString();
-      console.log("В вашем списке нет столько слов");
-    }
+    event.target.value &&
+      setState((prevState) => ({
+        ...prevState,
+        amountOfWords: +event.target.value,
+      }));
   };
 
   return (
@@ -46,9 +50,8 @@ export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
       method="get"
       onSubmit={(e) => {
         onMsg({
-          type: "start_learning",
-          label: typeStudy,
-          amount: amountWords,
+          type: "on_form_submitted",
+          data: state,
         });
         e.preventDefault();
       }}
@@ -56,10 +59,13 @@ export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value={typeStudy}
+        value={state.language}
         label="Language"
         onChange={(event) => {
-          setTypeStudy(event.target.value as Language);
+          setState((prevState) => ({
+            ...prevState,
+            language: event.target.value as Language,
+          }));
         }}
       >
         {studyTypes.map((option) => (
@@ -78,7 +84,7 @@ export const LearningForm = ({ allWordsArray, onMsg }: LearningFormProps) => {
         }}
         onChange={handleChangeNumberInput}
       />
-      {amountWords ? (
+      {state.amountOfWords ? (
         <Button id="startLearningBtn" variant="contained" type="submit">
           Start Learning
         </Button>

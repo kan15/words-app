@@ -5,7 +5,7 @@ import { useWordsList } from "../hooks/useWordsList";
 import { notReachable } from "../utilities/utilities";
 import { ErrorComponent } from "./ErrorComponent";
 import { AppPage } from "./AppPage";
-import { LearningPageLoader } from "./learning/LearningPageLoader";
+import { LearningPage } from "./learning/LearningPage";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
@@ -46,7 +46,7 @@ export const PageLoader = () => {
             />
             <Route
               path="/learning"
-              element={<LearningPageLoader wordsList={state.wordsList} />}
+              element={<LearningPage wordsList={state.wordsList} />}
             />
           </Routes>
         </>
