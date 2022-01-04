@@ -67,7 +67,12 @@ export const LearningTable = ({
     case "not_success":
       return (
         <>
-          <LearningListSuccess words={state.successWords} language={language} />
+          {state.successWords.length > 0 && (
+            <LearningListSuccess
+              words={state.successWords}
+              language={language}
+            />
+          )}
           <LearningList
             language={language}
             showAsErrorWords={true}
