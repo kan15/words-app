@@ -11,7 +11,6 @@ export type Word = Translation & {
 
 export type Language = "RU" | "ENG";
 
-export type DataLearningList = {
-  label: Language;
-  amount: number;
+export type LearningWord = Word & {
+  userValue: string;
 };

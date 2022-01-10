@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Translation } from "../../types/types";
-import { Input, Button } from "@mui/material";
+import { Input, Button, Stack } from "@mui/material";
 import { isDraftValid, useAddWord } from "../../hooks/useAddWord";
 import { LoadingComponent } from "../LoadingComponent";
 
@@ -57,30 +57,32 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
     case "loaded":
       return (
         <form method="get" onSubmit={handleSubmit}>
-          {state.type === "error" ? state.error : "no errors"}
-          <Input
-            type="text"
-            value={draft.eng}
-            name="eng"
-            onChange={handleChange}
-          />
-          <Input
-            type="text"
-            value={draft.rus}
-            name="rus"
-            onChange={handleChange}
-          />
-          <Button
-            variant="contained"
-            color="success"
-            type="submit"
-            onClick={(e) => {
-              handleSubmit();
-              e.preventDefault();
-            }}
-          >
-            Add word
-          </Button>
+          <Stack gap={1} flexDirection={"row"}>
+            <Input type="text"
+              value={draft.eng}
+              name="eng"
+              onChange={handleChange}
+            />
+            <Input
+              type="text"
+              value={draft.rus}
+              name="rus"
+              onChange={handleChange}
+            />
+            <Button
+              variant="contained"
+              color="success"
+              type="submit"
+              onClick={(e) => {
+                handleSubmit();
+                e.preventDefault();
+              }}
+            >
+              Add word
+            </Button>
+          </Stack>
+
+          <div>{state.type === "error" ? state.error : "no errors"}</div>
         </form>
       );
   }
