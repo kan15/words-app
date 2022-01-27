@@ -33,12 +33,16 @@ export const LearningList = ({
   return (
     <>
       <TableContainer>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ maxWidth: 900 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>№</TableCell>
-              <TableCell>{language === "RU" ? "English" : "Russian"}</TableCell>
-              <TableCell>{language === "RU" ? "Russian" : "English"}</TableCell>
+              <TableCell width="6%">№</TableCell>
+              <TableCell width="47%">
+                {language === "RU" ? "English" : "Russian"}
+              </TableCell>
+              <TableCell width="47%">
+                {language === "RU" ? "Russian" : "English"}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

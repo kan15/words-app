@@ -7,6 +7,7 @@ import { MdDone } from "react-icons/md";
 import apiQueries from "../api/apiQueries";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { Stack } from "@mui/material";
 
 type Msg = {
   type: "word_updated";
@@ -48,7 +49,6 @@ export const EditableWord = ({
       </TableCell>
       <TableCell>
         <TextField
-          label="English"
           variant="outlined"
           value={draftEditableWord.eng}
           onChange={handleChange}
@@ -57,7 +57,6 @@ export const EditableWord = ({
       </TableCell>
       <TableCell>
         <TextField
-          label="Russian"
           variant="outlined"
           value={draftEditableWord.rus}
           onChange={handleChange}
@@ -65,25 +64,33 @@ export const EditableWord = ({
         />
       </TableCell>
       <TableCell>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={(e) => {
-            apiQueries.updateItem(draftEditableWord);
-            onMsg({ type: "word_updated" });
-          }}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
         >
-          <MdDone />
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={(e) => {
-            onWordsListMsg({ type: "cancel_change" });
-          }}
-        >
-          <GiCancel />
-        </Button>
+          <Button
+            variant="contained"
+            className={"word-item_button"}
+            color="success"
+            onClick={(e) => {
+              apiQueries.updateItem(draftEditableWord);
+              onMsg({ type: "word_updated" });
+            }}
+          >
+            <MdDone />
+          </Button>
+          <Button
+            variant="contained"
+            className={"word-item_button button_cancel"}
+            onClick={(e) => {
+              onWordsListMsg({ type: "cancel_change" });
+            }}
+          >
+            <GiCancel />
+          </Button>
+        </Stack>
       </TableCell>
     </TableRow>
   );

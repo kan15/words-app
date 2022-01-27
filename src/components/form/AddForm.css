@@ -1,0 +1,22 @@
+.form {
+    border: 2px solid white;
+    border-radius: 15px;
+    max-width: 25%;
+    background-color: white;
+    padding: 25px 0;
+    font-size: 20px;
+}
+.form__title {
+    margin: 0;
+}
+.form__input {
+    width: 75%;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+}
+.form__button {
+    font-family: 'Lato', sans-serif;
+}
+.form_error {
+    color: darkred;
+}

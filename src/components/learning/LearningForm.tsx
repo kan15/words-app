@@ -4,6 +4,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { Language } from "../../types/types";
+import { Stack } from "@mui/material";
 
 const studyTypes = [
   {
@@ -48,6 +49,7 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
   return (
     <form
       method="get"
+      className={"form"}
       onSubmit={(e) => {
         onMsg({
           type: "on_form_submitted",
@@ -56,39 +58,46 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
         e.preventDefault();
       }}
     >
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={state.language}
-        label="Language"
-        onChange={(event) => {
-          setState((prevState) => ({
-            ...prevState,
-            language: event.target.value as Language,
-          }));
-        }}
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
       >
-        {studyTypes.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-      <TextField
-        id="outlined-number"
-        InputProps={{ inputProps: { min: 1 } }}
-        label="Number of words"
-        type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={handleChangeNumberInput}
-      />
-      {state.amountOfWords ? (
-        <Button id="startLearningBtn" variant="contained" type="submit">
-          Start Learning
-        </Button>
-      ) : null}
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={state.language}
+          label="Language"
+          onChange={(event) => {
+            setState((prevState) => ({
+              ...prevState,
+              language: event.target.value as Language,
+            }));
+          }}
+        >
+          {studyTypes.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        <TextField
+          id="outlined-number"
+          InputProps={{ inputProps: { min: 1 } }}
+          label="Number of words"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={handleChangeNumberInput}
+        />
+        {state.amountOfWords ? (
+          <Button id="startLearningBtn" variant="contained" type="submit">
+            Start Learning
+          </Button>
+        ) : null}
+      </Stack>
     </form>
   );
 };
