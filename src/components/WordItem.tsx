@@ -31,7 +31,14 @@ export const WordItem = ({
   onWordsListMsg,
 }: WordItemProps) => {
   return (
-    <TableRow>
+    <TableRow
+      sx={{
+        "&:nth-child(odd) td, &:nth-child(odd) th": {
+          bgcolor: "white",
+        },
+        "&:nth-child(even) td, &:nth-child(even) th": { bgcolor: "#99ffbb" },
+      }}
+    >
       <TableCell component="th" scope="row" width="5%">
         {index}
       </TableCell>

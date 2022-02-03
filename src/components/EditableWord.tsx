@@ -43,24 +43,38 @@ export const EditableWord = ({
   };
 
   return (
-    <TableRow>
+    <TableRow
+      sx={{
+        "&:nth-child(odd) td, &:nth-child(odd) th": {
+          bgcolor: "white",
+          fontSize: 20,
+        },
+        "&:nth-child(even) td, &:nth-child(even) th": { bgcolor: "#99ffbb" },
+      }}
+    >
       <TableCell component="th" scope="row">
         {index}
       </TableCell>
-      <TableCell>
+      <TableCell sx={{ p: 0 }}>
         <TextField
           variant="outlined"
           value={draftEditableWord.eng}
           onChange={handleChange}
           name="eng"
+          inputProps={{
+            sx: { fontSize: 24, pl: 2, pt: 0.5, pb: 0.5 },
+          }}
         />
       </TableCell>
-      <TableCell>
+      <TableCell sx={{ p: 0 }}>
         <TextField
           variant="outlined"
           value={draftEditableWord.rus}
           onChange={handleChange}
           name="rus"
+          inputProps={{
+            sx: { fontSize: 24, pl: 2, pt: 0.5, pb: 0.5 },
+          }}
         />
       </TableCell>
       <TableCell>

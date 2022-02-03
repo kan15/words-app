@@ -32,10 +32,16 @@ export const LearningList = ({
 
   return (
     <>
-      <TableContainer>
+      <TableContainer
+        sx={{
+          "td, th": {
+            fontSize: 24,
+          },
+        }}
+      >
         <Table sx={{ maxWidth: 900 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ bgcolor: "#00cc44" }}>
               <TableCell width="6%">№</TableCell>
               <TableCell width="47%">
                 {language === "RU" ? "English" : "Russian"}
@@ -48,14 +54,24 @@ export const LearningList = ({
           <TableBody>
             {learningWords.map((word: LearningWord, index: number) => {
               return (
-                <TableRow key={word.key}>
+                <TableRow
+                  key={word.key}
+                  sx={{
+                    "&:nth-child(odd) td, &:nth-child(odd) th": {
+                      bgcolor: "white",
+                    },
+                    "&:nth-child(even) td, &:nth-child(even) th": {
+                      bgcolor: "#99ffbb",
+                    },
+                  }}
+                >
                   <TableCell component="th" scope="row">
                     {++index}
                   </TableCell>
                   <TableCell>
                     {language === "RU" ? word.eng : word.rus}
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ p: 0 }}>
                     <TextField
                       onChange={(event) => {
                         const newLearningWords = [...learningWords];
@@ -68,12 +84,15 @@ export const LearningList = ({
                           learningWords: newLearningWords,
                         });
                       }}
-                      // value={value}
-                      // disabled={disableInput()}
                       variant="outlined"
-                      // onBlur={submitChange}
                       inputProps={{
-                        sx: { backgroundColor: backgroundColor() },
+                        sx: {
+                          backgroundColor: backgroundColor(),
+                          fontSize: 24,
+                          pl: 2,
+                          pt: 0.5,
+                          pb: 0.5,
+                        },
                       }}
                     />
                   </TableCell>

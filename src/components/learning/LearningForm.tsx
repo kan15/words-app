@@ -4,7 +4,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { Language } from "../../types/types";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 const studyTypes = [
   {
@@ -64,11 +64,18 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
         alignItems="center"
         spacing={2}
       >
+        <Typography
+          sx={{
+            fontSize: 20,
+          }}
+        >
+          In what direction do you want to repeat the words?
+        </Typography>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
+          style={{ width: 110 }}
           value={state.language}
-          label="Language"
           onChange={(event) => {
             setState((prevState) => ({
               ...prevState,
@@ -82,10 +89,17 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
             </MenuItem>
           ))}
         </Select>
+        <Typography
+          sx={{
+            fontSize: 20,
+          }}
+        >
+          How many words do you want to repeat?
+        </Typography>
         <TextField
           id="outlined-number"
           InputProps={{ inputProps: { min: 1 } }}
-          label="Number of words"
+          style={{ width: 110 }}
           type="number"
           InputLabelProps={{
             shrink: true,

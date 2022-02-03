@@ -18,13 +18,23 @@ export const LearningListSuccess = ({
   language,
 }: LearningListSuccessProps) => {
   return (
-    <TableContainer>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer
+      sx={{
+        "td, th": {
+          fontSize: 24,
+        },
+      }}
+    >
+      <Table sx={{ maxWidth: 900 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
-            <TableCell>№</TableCell>
-            <TableCell>{language === "ENG" ? "Russian" : "English"}</TableCell>
-            <TableCell>{language === "ENG" ? "English" : "Russian"}</TableCell>
+          <TableRow sx={{ bgcolor: "#00cc44" }}>
+            <TableCell width="6%">№</TableCell>
+            <TableCell width="47%">
+              {language === "RU" ? "English" : "Russian"}
+            </TableCell>
+            <TableCell width="47%">
+              {language === "RU" ? "Russian" : "English"}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

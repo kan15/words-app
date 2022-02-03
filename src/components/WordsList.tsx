@@ -37,13 +37,21 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
 
   return (
     <>
-      <TableContainer>
+      <TableContainer
+        sx={{
+          "td, th": {
+            fontSize: 24,
+          },
+        }}
+      >
         <Table sx={{ maxWidth: 900 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ bgcolor: "#00cc44" }}>
               <TableCell width="5%">№</TableCell>
               <TableCell width="45%">Eng</TableCell>
-              <TableCell width="50%" colSpan={2}>Rus</TableCell>
+              <TableCell width="50%" colSpan={2}>
+                Rus
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

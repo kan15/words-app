@@ -9,11 +9,10 @@
 .form__title {
     margin: 0;
 }
-.form__input {
-    width: 75%;
-    font-family: 'Lato', sans-serif;
-    font-size: 20px;
-}
+/*.form__input {*/
+/*    width: 75%;*/
+/*    font-size: 20px;*/
+/*}*/
 .form__button {
     font-family: 'Lato', sans-serif;
 }

@@ -1,14 +1,4 @@
-tbody > tr:nth-child(odd) {
-    background-color: white;
-}
-tbody > tr:nth-child(even) {
-    background-color: #99ffbb;
-}
-thead {
-    background-color: #00b33c;
-    font-size: 24px;
-    font-family: 'Lato', sans-serif;
-}
+
 button.word-item_button {
     max-width: 30px;
     max-height: 30px;
@@ -27,8 +17,4 @@ button.button_cancel {
 }
 button.button_cancel:hover {
     background-color: #006bb3;
-}
-table {
-    font-size: 24px;
-    font-family: 'Lato', sans-serif;
 }

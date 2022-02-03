@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AddForm.css";
 import { Translation } from "../../types/types";
-import { Input, Button, Stack, TextField } from "@mui/material";
+import { Input, Button, Stack, TextField, Typography } from "@mui/material";
 import { isDraftValid, useAddWord } from "../../hooks/useAddWord";
 import { LoadingComponent } from "../LoadingComponent";
 
@@ -65,10 +65,13 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
               alignItems="center"
               spacing={2}
             >
-              <p className={"form__title"}>
+              <Typography
+                sx={{
+                  fontSize: 20,
+                }}
+              >
                 Do you want to add a new word to your list?
-              </p>
-
+              </Typography>
               <Input
                 className={"input form__input"}
                 placeholder={"English word version"}
@@ -76,6 +79,9 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
                 value={draft.eng}
                 name="eng"
                 onChange={handleChange}
+                inputProps={{
+                  sx: { fontSize: 20 },
+                }}
               />
               <Input
                 className={"input form__input"}
@@ -84,6 +90,9 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
                 value={draft.rus}
                 name="rus"
                 onChange={handleChange}
+                inputProps={{
+                  sx: { fontSize: 20 },
+                }}
               />
               <Button
                 className={"form__button"}

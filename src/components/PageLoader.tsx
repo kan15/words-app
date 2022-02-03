@@ -6,6 +6,7 @@ import { notReachable } from "../utilities/utilities";
 import { ErrorComponent } from "./ErrorComponent";
 import { AppPage } from "./AppPage";
 import { LearningPage } from "./learning/LearningPage";
+import { Header } from "./Header";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
@@ -17,10 +18,12 @@ export const PageLoader = () => {
     case "loaded":
       return (
         <>
-          <header>
-            <Link to="/">Home</Link>
-            <Link to="/learning">Start learning</Link>
-          </header>
+          <Header />
+          {/*<header>*/}
+          {/*  <Link to="/">Home</Link>*/}
+          {/*  <Link to="/learning">Start learning</Link>*/}
+          {/*</header>*/}
+
           <Routes>
             <Route
               path="/"
