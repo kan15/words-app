@@ -4,6 +4,7 @@ import { LearningForm } from "./LearningForm";
 import { notReachable } from "../../utilities/utilities";
 import { LearningTable } from "./LearningTable";
 import { LearningResultPage } from "./LearningResultPage";
+import Stack from "@mui/material/Stack";
 
 const sortArray = (array: Word[], amount: number) => {
   return array
@@ -60,30 +61,37 @@ export const LearningPage = ({ wordsList }: LearningPageProps) => {
 
     case "learning_table":
       return (
-        <LearningTable
-          words={state.words}
-          language={state.language}
-          onMsg={(msg) => {
-            switch (msg.type) {
-              case "show_result":
-                setState({
-                  type: "learning_result",
-                  result: {
-                    correctWords: msg.result.correctWords,
-                    wrongWords: msg.result.wrongWords,
-                  },
-                });
-                break;
-              case "study_again":
-                setState({
-                  type: "learning_form",
-                });
-                break;
-              default:
-                return notReachable(msg);
-            }
-          }}
-        />
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
+          <LearningTable
+            words={state.words}
+            language={state.language}
+            onMsg={(msg) => {
+              switch (msg.type) {
+                case "show_result":
+                  setState({
+                    type: "learning_result",
+                    result: {
+                      correctWords: msg.result.correctWords,
+                      wrongWords: msg.result.wrongWords,
+                    },
+                  });
+                  break;
+                case "study_again":
+                  setState({
+                    type: "learning_form",
+                  });
+                  break;
+                default:
+                  return notReachable(msg);
+              }
+            }}
+          />
+        </Stack>
       );
 
     case "learning_form":

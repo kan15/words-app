@@ -74,6 +74,7 @@ export const LearningTable = ({
             />
           )}
           <LearningList
+            firstWordNumber={state.successWords.length + 1}
             language={language}
             showAsErrorWords={true}
             learningWords={state.errorWords}
@@ -146,6 +147,7 @@ export const LearningTable = ({
       return (
         <>
           <LearningList
+            firstWordNumber={1}
             language={language}
             showAsErrorWords={false}
             learningWords={state.learningWords}

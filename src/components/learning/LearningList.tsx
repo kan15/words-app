@@ -17,6 +17,7 @@ type LearningListProps = {
   language: Language;
   showAsErrorWords: boolean;
   learningWords: LearningWord[];
+  firstWordNumber: number;
   onMsg: (msg: LearningListMsg) => void;
 };
 
@@ -24,12 +25,13 @@ export const LearningList = ({
   language,
   showAsErrorWords,
   learningWords,
+  firstWordNumber,
   onMsg,
 }: LearningListProps) => {
   const backgroundColor = () => {
     return showAsErrorWords ? "#ff6666" : "#fff";
   };
-
+  console.log(firstWordNumber);
   return (
     <>
       <TableContainer
@@ -40,17 +42,19 @@ export const LearningList = ({
         }}
       >
         <Table sx={{ maxWidth: 900 }} aria-label="simple table">
-          <TableHead>
-            <TableRow sx={{ bgcolor: "#00cc44" }}>
-              <TableCell width="6%">№</TableCell>
-              <TableCell width="47%">
-                {language === "RU" ? "English" : "Russian"}
-              </TableCell>
-              <TableCell width="47%">
-                {language === "RU" ? "Russian" : "English"}
-              </TableCell>
-            </TableRow>
-          </TableHead>
+          {firstWordNumber === 1 && (
+            <TableHead>
+              <TableRow sx={{ bgcolor: "#00cc44" }}>
+                <TableCell width="6%">№</TableCell>
+                <TableCell width="47%">
+                  {language === "RU" ? "English" : "Russian"}
+                </TableCell>
+                <TableCell width="47%">
+                  {language === "RU" ? "Russian" : "English"}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+          )}
           <TableBody>
             {learningWords.map((word: LearningWord, index: number) => {
               return (
@@ -65,18 +69,18 @@ export const LearningList = ({
                     },
                   }}
                 >
-                  <TableCell component="th" scope="row">
-                    {++index}
+                  <TableCell component="th" scope="row" width="6%">
+                    {index + firstWordNumber}
                   </TableCell>
-                  <TableCell>
+                  <TableCell width="47%">
                     {language === "RU" ? word.eng : word.rus}
                   </TableCell>
-                  <TableCell sx={{ p: 0 }}>
+                  <TableCell sx={{ p: 0 }} width="47%">
                     <TextField
                       onChange={(event) => {
                         const newLearningWords = [...learningWords];
-                        newLearningWords[index - 1] = {
-                          ...newLearningWords[index - 1],
+                        newLearningWords[index] = {
+                          ...newLearningWords[index],
                           userValue: event.target.value,
                         };
                         onMsg({
