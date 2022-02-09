@@ -7,6 +7,11 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TextField from "@mui/material/TextField";
+import {
+  tableHeadColor,
+  tableRowEvenColor,
+  tableRowOddColor,
+} from "../constants/colors";
 
 type LearningListMsg = {
   type: "on_user_word_changed";
@@ -31,7 +36,6 @@ export const LearningList = ({
   const backgroundColor = () => {
     return showAsErrorWords ? "#ff6666" : "#fff";
   };
-  console.log(firstWordNumber);
   return (
     <>
       <TableContainer
@@ -41,10 +45,10 @@ export const LearningList = ({
           },
         }}
       >
-        <Table sx={{ maxWidth: 900 }} aria-label="simple table">
+        <Table sx={{ width: 900 }} aria-label="simple table">
           {firstWordNumber === 1 && (
             <TableHead>
-              <TableRow sx={{ bgcolor: "#00cc44" }}>
+              <TableRow sx={{ backgroundColor: tableHeadColor }}>
                 <TableCell width="6%">№</TableCell>
                 <TableCell width="47%">
                   {language === "RU" ? "English" : "Russian"}
@@ -62,10 +66,10 @@ export const LearningList = ({
                   key={word.key}
                   sx={{
                     "&:nth-child(odd) td, &:nth-child(odd) th": {
-                      bgcolor: "white",
+                      backgroundColor: tableRowOddColor,
                     },
                     "&:nth-child(even) td, &:nth-child(even) th": {
-                      bgcolor: "#99ffbb",
+                      backgroundColor: tableRowEvenColor,
                     },
                   }}
                 >

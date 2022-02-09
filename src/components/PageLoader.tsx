@@ -1,12 +1,13 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { LoadingComponent } from "./LoadingComponent";
 import { useWordsList } from "../hooks/useWordsList";
 import { notReachable } from "../utilities/utilities";
 import { ErrorComponent } from "./ErrorComponent";
 import { AppPage } from "./AppPage";
 import { LearningPage } from "./learning/LearningPage";
-import { Header } from "./Header";
+import { Menu } from "./Menu";
+import Box from "@mui/material/Box";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
@@ -18,40 +19,44 @@ export const PageLoader = () => {
     case "loaded":
       return (
         <>
-          <Header />
-          {/*<header>*/}
-          {/*  <Link to="/">Home</Link>*/}
-          {/*  <Link to="/learning">Start learning</Link>*/}
-          {/*</header>*/}
-
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <AppPage
-                  wordsList={state.wordsList}
-                  onMsg={(msg) => {
-                    switch (msg.type) {
-                      case "new_word_added":
-                      case "word_deleted":
-                      case "word_updated":
-                        reloadWordsList();
-                        return;
-                      case "list_is_loaded":
-                        return;
-                      default:
-                        notReachable(msg);
-                        break;
-                    }
-                  }}
-                />
-              }
-            />
-            <Route
-              path="/learning"
-              element={<LearningPage wordsList={state.wordsList} />}
-            />
-          </Routes>
+          <Menu />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Routes>
+              <Route
+                path="/words-app"
+                element={
+                  <AppPage
+                    wordsList={state.wordsList}
+                    onMsg={(msg) => {
+                      switch (msg.type) {
+                        case "new_word_added":
+                        case "word_deleted":
+                        case "word_updated":
+                          reloadWordsList();
+                          return;
+                        case "list_is_loaded":
+                          return;
+                        default:
+                          notReachable(msg);
+                          break;
+                      }
+                    }}
+                  />
+                }
+              />
+              <Route
+                path="/learning"
+                element={<LearningPage wordsList={state.wordsList} />}
+              />
+            </Routes>
+          </Box>
         </>
       );
 

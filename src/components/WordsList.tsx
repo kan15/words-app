@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { EditableWord } from "./EditableWord";
 import { WordItem } from "./WordItem";
-import "./WordsList.css";
+import { tableHeadColor } from "./constants/colors";
 
 type Msg =
   | {
@@ -39,14 +39,15 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
     <>
       <TableContainer
         sx={{
+          mt: 2.5,
           "td, th": {
             fontSize: 24,
           },
         }}
       >
-        <Table sx={{ maxWidth: 900 }} aria-label="simple table">
+        <Table sx={{ width: 900 }} aria-label="simple table">
           <TableHead>
-            <TableRow sx={{ bgcolor: "#00cc44" }}>
+            <TableRow sx={{ backgroundColor: tableHeadColor }}>
               <TableCell width="5%">№</TableCell>
               <TableCell width="45%">Eng</TableCell>
               <TableCell width="50%" colSpan={2}>

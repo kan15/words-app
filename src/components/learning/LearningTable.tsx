@@ -4,6 +4,8 @@ import { Word, Language, LearningWord } from "../../types/types";
 import { LearningList } from "./LearningList";
 import { notReachable } from "../../utilities/utilities";
 import { LearningListSuccess } from "./LearningListSuccess";
+import Box from "@mui/material/Box";
+import { Stack } from "@mui/material";
 
 type LearningTableMsg =
   | {
@@ -66,7 +68,14 @@ export const LearningTable = ({
   switch (state.type) {
     case "not_success":
       return (
-        <>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           {state.successWords.length > 0 && (
             <LearningListSuccess
               words={state.successWords}
@@ -90,62 +99,88 @@ export const LearningTable = ({
               }
             }}
           />
-          <Button
-            variant="contained"
-            onClick={(event) => {
-              if (checkLearningWords(state.errorWords, language)) {
-                setState({
-                  type: "success",
-                  words: [...state.successWords, ...state.errorWords],
-                });
-              } else {
-                setState({
-                  type: "not_success",
-                  successWords: [
-                    ...state.successWords,
-                    ...getCorrectWords(state.errorWords, language),
-                  ],
-                  errorWords: getWrongWords(state.errorWords, language),
-                });
-              }
-            }}
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            spacing={1}
+            mt={2.5}
           >
-            Check again
-          </Button>
-          <Button
-            variant="contained"
-            onClick={(e) => {
-              onMsg({
-                type: "show_result",
-                result: {
-                  correctWords: state.successWords.length,
-                  wrongWords: state.errorWords.length,
-                },
-              });
-            }}
-          >
-            Get result
-          </Button>
-        </>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={(event) => {
+                if (checkLearningWords(state.errorWords, language)) {
+                  setState({
+                    type: "success",
+                    words: [...state.successWords, ...state.errorWords],
+                  });
+                } else {
+                  setState({
+                    type: "not_success",
+                    successWords: [
+                      ...state.successWords,
+                      ...getCorrectWords(state.errorWords, language),
+                    ],
+                    errorWords: getWrongWords(state.errorWords, language),
+                  });
+                }
+              }}
+            >
+              Check again
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={(e) => {
+                onMsg({
+                  type: "show_result",
+                  result: {
+                    correctWords: state.successWords.length,
+                    wrongWords: state.errorWords.length,
+                  },
+                });
+              }}
+            >
+              Get result
+            </Button>
+          </Stack>
+        </Box>
       );
     case "success":
       return (
-        <>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <LearningListSuccess words={state.words} language={language} />
           <Button
             variant="contained"
+            color="secondary"
             onClick={(e) => {
               onMsg({ type: "study_again" });
             }}
+            sx={{ mt: 2.5 }}
           >
             That's right
           </Button>
-        </>
+        </Box>
       );
 
     case "learning":
       return (
-        <>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <LearningList
             firstWordNumber={1}
             language={language}
@@ -165,6 +200,7 @@ export const LearningTable = ({
           />
           <Button
             variant="contained"
+            color="secondary"
             onClick={(e) => {
               if (checkLearningWords(state.learningWords, language)) {
                 setState({
@@ -179,10 +215,11 @@ export const LearningTable = ({
                 });
               }
             }}
+            sx={{ mt: 2.5 }}
           >
             Check
           </Button>
-        </>
+        </Box>
       );
 
     default:

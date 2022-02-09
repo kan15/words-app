@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { Language } from "../../types/types";
 import { Stack, Typography } from "@mui/material";
+import { formBackgroundColor } from "../constants/colors";
 
 const studyTypes = [
   {
@@ -63,6 +64,12 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
         justifyContent="center"
         alignItems="center"
         spacing={2}
+        sx={{
+          border: "2px solid white",
+          borderRadius: "15px",
+          backgroundColor: formBackgroundColor,
+          p: 2,
+        }}
       >
         <Typography
           sx={{

@@ -1,5 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
+// import { initializeApp } from "firebase/app";
 import { Translation, Word } from "../types/types";
 
 const firebaseConfig = {
@@ -12,6 +13,7 @@ const firebaseConfig = {
   appId: "1:281598012164:web:7e8ed5899b5cf80bf8fe51",
 };
 firebase.initializeApp(firebaseConfig);
+// initializeApp(firebaseConfig);
 
 const errData = (error: string) => {
   console.log("Error!", error);

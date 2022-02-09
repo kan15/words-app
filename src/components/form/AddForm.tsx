@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./AddForm.css";
 import { Translation } from "../../types/types";
-import { Input, Button, Stack, TextField, Typography } from "@mui/material";
+import { Input, Button, Typography } from "@mui/material";
 import { isDraftValid, useAddWord } from "../../hooks/useAddWord";
 import { LoadingComponent } from "../LoadingComponent";
+import Box from "@mui/material/Box";
+import { formBackgroundColor } from "../constants/colors";
 
 type AddFormProps = {
   onMsg: (msg: Msg) => void;
@@ -59,11 +60,17 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
       return (
         <>
           <form method="get" onSubmit={handleSubmit} className={"form"}>
-            <Stack
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={2}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+                border: "2px solid white",
+                borderRadius: "15px",
+                backgroundColor: formBackgroundColor,
+                p: 3,
+              }}
             >
               <Typography
                 sx={{
@@ -73,23 +80,23 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
                 Do you want to add a new word to your list?
               </Typography>
               <Input
-                className={"input form__input"}
                 placeholder={"English word version"}
                 type="text"
                 value={draft.eng}
                 name="eng"
                 onChange={handleChange}
+                sx={{ mt: 1.5, mb: 0.75 }}
                 inputProps={{
                   sx: { fontSize: 20 },
                 }}
               />
               <Input
-                className={"input form__input"}
                 placeholder={"Russian word version"}
                 type="text"
                 value={draft.rus}
                 name="rus"
                 onChange={handleChange}
+                sx={{ mt: 0.75, mb: 2.5 }}
                 inputProps={{
                   sx: { fontSize: 20 },
                 }}
@@ -109,7 +116,8 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
               <div className={"form_error"}>
                 {state.type === "error" ? state.error : null}
               </div>
-            </Stack>
+              {/*</Stack>*/}
+            </Box>
           </form>
         </>
       );
