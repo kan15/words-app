@@ -49,9 +49,9 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
           <TableHead>
             <TableRow sx={{ backgroundColor: tableHeadColor }}>
               <TableCell width="5%">№</TableCell>
-              <TableCell width="45%">Eng</TableCell>
+              <TableCell width="45%">English</TableCell>
               <TableCell width="50%" colSpan={2}>
-                Rus
+                Russian
               </TableCell>
             </TableRow>
           </TableHead>
