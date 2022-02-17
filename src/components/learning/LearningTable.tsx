@@ -42,17 +42,23 @@ type LearningTableState =
 
 const checkLearningWords = (words: LearningWord[], lang: Language) => {
   const keyLang = lang === "RU" ? "rus" : "eng";
-  return !words.some((word) => word[keyLang] !== word.userValue);
+  return !words.some(
+    (word) => word[keyLang].toUpperCase() !== word.userValue.toUpperCase()
+  );
 };
 
 const getCorrectWords = (words: LearningWord[], lang: Language) => {
   const keyLang = lang === "RU" ? "rus" : "eng";
-  return words.filter((word) => word[keyLang] === word.userValue);
+  return words.filter(
+    (word) => word[keyLang].toUpperCase() === word.userValue.toUpperCase()
+  );
 };
 
 const getWrongWords = (words: LearningWord[], lang: Language) => {
   const keyLang = lang === "RU" ? "rus" : "eng";
-  return words.filter((word) => word[keyLang] !== word.userValue);
+  return words.filter(
+    (word) => word[keyLang].toUpperCase() !== word.userValue.toUpperCase()
+  );
 };
 
 export const LearningTable = ({
