@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/words-app/static/css/main.ca6c7285.css",
-    "main.js": "/words-app/static/js/main.5db55bcb.js",
+    "main.js": "/words-app/static/js/main.9d45fcb0.js",
     "static/js/787.24ac49e9.chunk.js": "/words-app/static/js/787.24ac49e9.chunk.js",
     "index.html": "/words-app/index.html",
     "main.ca6c7285.css.map": "/words-app/static/css/main.ca6c7285.css.map",
-    "main.5db55bcb.js.map": "/words-app/static/js/main.5db55bcb.js.map",
+    "main.9d45fcb0.js.map": "/words-app/static/js/main.9d45fcb0.js.map",
     "787.24ac49e9.chunk.js.map": "/words-app/static/js/787.24ac49e9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ca6c7285.css",
-    "static/js/main.5db55bcb.js"
+    "static/js/main.9d45fcb0.js"
   ]
 }
