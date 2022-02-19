@@ -7,9 +7,12 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TextField from "@mui/material/TextField";
-import { tableRowEvenColor, tableRowOddColor } from "../constants/colors";
-
-const tableHeadColor = "#8db5bf";
+import {
+  successInputItemColor,
+  tableHeadColor,
+  tableRowEvenColor,
+  tableRowOddColor,
+} from "../constants/colors";
 
 type LearningListSuccessProps = {
   words: LearningWord[];
@@ -30,7 +33,7 @@ export const LearningListSuccess = ({
     >
       <Table sx={{ width: 900 }} aria-label="simple table">
         <TableHead>
-          <TableRow sx={{ bgcolor: tableHeadColor }}>
+          <TableRow sx={{ backgroundColor: tableHeadColor }}>
             <TableCell width="6%">№</TableCell>
             <TableCell width="47%">
               {language === "RU" ? "English" : "Russian"}
@@ -67,7 +70,7 @@ export const LearningListSuccess = ({
                     variant="outlined"
                     inputProps={{
                       sx: {
-                        backgroundColor: "#99ff99",
+                        backgroundColor: successInputItemColor,
                         fontSize: 24,
                         pl: 2,
                         pt: 0.5,

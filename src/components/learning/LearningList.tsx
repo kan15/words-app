@@ -8,6 +8,8 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TextField from "@mui/material/TextField";
 import {
+  emptyInputItemColor,
+  errorInputItemColor,
   tableHeadColor,
   tableRowEvenColor,
   tableRowOddColor,
@@ -26,6 +28,16 @@ type LearningListProps = {
   onMsg: (msg: LearningListMsg) => void;
 };
 
+const getEmptyInputs = () => {
+  let inputs: HTMLElement[] = Array.from(
+    document.querySelectorAll("input[type=text]")
+  );
+  const disabled: HTMLElement[] = Array.from(
+    document.querySelectorAll("input[type=text]:disabled")
+  );
+  return inputs.filter((el) => !disabled.includes(el)); // get inputs without disabled option
+};
+
 export const LearningList = ({
   language,
   showAsErrorWords,
@@ -34,8 +46,18 @@ export const LearningList = ({
   onMsg,
 }: LearningListProps) => {
   const backgroundColor = () => {
-    return showAsErrorWords ? "#ff6666" : "#fff";
+    return showAsErrorWords ? errorInputItemColor : emptyInputItemColor;
   };
+
+  const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      const inputs = getEmptyInputs();
+      const currentInput = event.target;
+      const index = inputs.findIndex((input) => input === currentInput);
+      inputs[index + 1 === inputs.length ? 0 : index + 1].focus();
+    }
+  };
+
   return (
     <>
       <TableContainer
@@ -45,7 +67,11 @@ export const LearningList = ({
           },
         }}
       >
-        <Table sx={{ width: 900 }} aria-label="simple table">
+        <Table
+          sx={{ width: 900 }}
+          aria-label="simple table"
+          className={"learning-table"}
+        >
           {firstWordNumber === 1 && (
             <TableHead>
               <TableRow sx={{ backgroundColor: tableHeadColor }}>
@@ -81,6 +107,7 @@ export const LearningList = ({
                   </TableCell>
                   <TableCell sx={{ p: 0 }} width="47%">
                     <TextField
+                      onKeyDown={handleEnter}
                       onChange={(event) => {
                         const newLearningWords = [...learningWords];
                         newLearningWords[index] = {
