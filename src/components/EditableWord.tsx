@@ -98,8 +98,9 @@ export const EditableWord = ({
             sx={styleButton}
             color="success"
             onClick={(e) => {
-              apiQueries.updateItem(draftEditableWord);
-              onMsg({ type: "word_updated" });
+              apiQueries
+                .updateItem(draftEditableWord)
+                .then(() => onMsg({ type: "word_updated" }));
             }}
           >
             <CheckOutlinedIcon fontSize="small" />

@@ -58,9 +58,9 @@ const apiQueries = {
     return firebase.database().ref().update(updates);
   },
 
-  updateItem(newWord: Word) {
+  updateItem(newWord: Word): Promise<void> {
     const adaNameRef = firebase.database().ref(`words/${newWord.key}`);
-    adaNameRef.update({ eng: newWord.eng, rus: newWord.rus });
+    return adaNameRef.update({ eng: newWord.eng, rus: newWord.rus });
   },
 
   deleteItem(word: Word) {
