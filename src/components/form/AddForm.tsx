@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Translation } from "../../types/types";
-import { Input, Button, Typography } from "@mui/material";
+import { Input, Button, Typography, Stack } from "@mui/material";
 import { isDraftValid, useAddWord } from "../../hooks/useAddWord";
 import { LoadingComponent } from "../LoadingComponent";
 import Box from "@mui/material/Box";
@@ -60,16 +60,16 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
       return (
         <>
           <form method="get" onSubmit={handleSubmit} className={"form"}>
-            <Box
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                alignItems: "center",
                 border: "2px solid white",
                 borderRadius: "15px",
                 backgroundColor: formBackgroundColor,
-                p: 3,
+                p: 2,
               }}
             >
               <Typography
@@ -116,8 +116,7 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
               <div className={"form_error"}>
                 {state.type === "error" ? state.error : null}
               </div>
-              {/*</Stack>*/}
-            </Box>
+            </Stack>
           </form>
         </>
       );

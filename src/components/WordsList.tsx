@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import { EditableWord } from "./EditableWord";
 import { WordItem } from "./WordItem";
 import { tableHeadColor } from "./constants/colors";
+import { Paper } from "@mui/material";
 
 type Msg =
   | {
@@ -44,8 +45,9 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
             fontSize: 24,
           },
         }}
+        component={Paper}
       >
-        <Table sx={{ width: 900 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow sx={{ backgroundColor: tableHeadColor }}>
               <TableCell width="5%">№</TableCell>

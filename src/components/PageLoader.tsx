@@ -8,8 +8,8 @@ import { AppPage } from "./AppPage";
 import { LearningPage } from "./learning/LearningPage";
 import { drawerWidth, Menu } from "./Menu";
 import Box from "@mui/material/Box";
-import { Drawer } from "@mui/material";
-import { Navigation } from "./Navigation";
+import { Drawer, Toolbar } from "@mui/material";
+import { Header } from "./Header";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
@@ -23,7 +23,7 @@ export const PageLoader = () => {
       return (
         <>
           <Box sx={{ display: "flex" }}>
-            <Navigation
+            <Header
               onMsg={(msg) => {
                 switch (msg.type) {
                   case "mobile_open":
@@ -69,34 +69,48 @@ export const PageLoader = () => {
                 <Menu />
               </Drawer>
             </Box>
-            <Routes>
-              <Route
-                path="/words-app"
-                element={
-                  <AppPage
-                    wordsList={state.wordsList}
-                    onMsg={(msg) => {
-                      switch (msg.type) {
-                        case "new_word_added":
-                        case "word_deleted":
-                        case "word_updated":
-                          reloadWordsList();
-                          return;
-                        case "list_is_loaded":
-                          return;
-                        default:
-                          notReachable(msg);
-                          break;
-                      }
-                    }}
-                  />
-                }
-              />
-              <Route
-                path="/learning"
-                element={<LearningPage wordsList={state.wordsList} />}
-              />
-            </Routes>
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                p: 3,
+                width: { sm: `calc(100% - ${drawerWidth}px)` },
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Toolbar />
+              <Routes>
+                <Route
+                  path="/words-app"
+                  element={
+                    <AppPage
+                      wordsList={state.wordsList}
+                      onMsg={(msg) => {
+                        switch (msg.type) {
+                          case "new_word_added":
+                          case "word_deleted":
+                          case "word_updated":
+                            reloadWordsList();
+                            return;
+                          case "list_is_loaded":
+                            return;
+                          default:
+                            notReachable(msg);
+                            break;
+                        }
+                      }}
+                    />
+                  }
+                />
+                <Route
+                  path="/learning"
+                  element={<LearningPage wordsList={state.wordsList} />}
+                />
+              </Routes>
+            </Box>
           </Box>
         </>
       );

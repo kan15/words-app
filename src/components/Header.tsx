@@ -7,11 +7,11 @@ type Msg = {
   type: "mobile_open";
 };
 
-type NavigationProps = {
+type HeaderProps = {
   onMsg: (msg: Msg) => void;
 };
 
-export const Navigation = ({ onMsg }: NavigationProps) => {
+export const Header = ({ onMsg }: HeaderProps) => {
   return (
     <AppBar
       position="fixed"
