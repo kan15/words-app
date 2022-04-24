@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { LoadingComponent } from "./LoadingComponent";
 import { useWordsList } from "../hooks/useWordsList";
@@ -6,11 +6,14 @@ import { notReachable } from "../utilities/utilities";
 import { ErrorComponent } from "./ErrorComponent";
 import { AppPage } from "./AppPage";
 import { LearningPage } from "./learning/LearningPage";
-import { Menu } from "./Menu";
+import { drawerWidth, Menu } from "./Menu";
 import Box from "@mui/material/Box";
+import { Drawer } from "@mui/material";
+import { Navigation } from "./Navigation";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   switch (state.type) {
     case "loading":
@@ -19,15 +22,53 @@ export const PageLoader = () => {
     case "loaded":
       return (
         <>
-          <Menu />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
+          <Box sx={{ display: "flex" }}>
+            <Navigation
+              onMsg={(msg) => {
+                switch (msg.type) {
+                  case "mobile_open":
+                    setMobileOpen(!mobileOpen);
+                }
+              }}
+            />
+            <Box
+              component="nav"
+              sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+              aria-label="mailbox folders"
+            >
+              <Drawer
+                variant="temporary"
+                open={mobileOpen}
+                ModalProps={{
+                  keepMounted: true,
+                }}
+                onClose={(e) => {
+                  setMobileOpen(!mobileOpen);
+                }}
+                sx={{
+                  display: { xs: "block", sm: "none" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                  },
+                }}
+              >
+                <Menu />
+              </Drawer>
+              <Drawer
+                variant="permanent"
+                sx={{
+                  display: { xs: "none", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                  },
+                }}
+                open
+              >
+                <Menu />
+              </Drawer>
+            </Box>
             <Routes>
               <Route
                 path="/words-app"

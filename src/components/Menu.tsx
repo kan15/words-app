@@ -32,53 +32,42 @@ export const Menu = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Drawer
-        variant="permanent"
-        anchor="left"
+      <Box
+        component="img"
         sx={{
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            backgroundColor: menuBackgroundColor,
-          },
+          height: 120,
+          width: "100%",
+          maxHeight: { xs: 240, md: 120 },
+          maxWidth: { xs: "100%", md: "100%" },
         }}
-      >
-        <Box
-          component="img"
-          sx={{
-            height: 120,
-            width: "100%",
-            maxHeight: { xs: 240, md: 120 },
-            maxWidth: { xs: "100%", md: "100%" },
-          }}
-          alt="The house from the offer."
-          src="https://i.postimg.cc/PrMJ5V2n/OKlogo.png"
-        />
-        <List>
-          {menuItems.map((item) => {
-            return (
-              <ListItem
-                button
-                key={item.text}
-                onClick={() => {
-                  navigate(item.path);
+        alt="Logo"
+        src="https://i.postimg.cc/PrMJ5V2n/OKlogo.png"
+      />
+      <List>
+        {menuItems.map((item) => {
+          return (
+            <ListItem
+              button
+              key={item.text}
+              onClick={() => {
+                navigate(item.path);
+              }}
+              sx={{ backgroundColor: itemMenuBackgroundColor, mb: 0.25 }}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{
+                  sx: {
+                    fontWeight: 700,
+                    fontSize: 20,
+                  },
                 }}
-                sx={{ backgroundColor: itemMenuBackgroundColor, mb: 0.25 }}
-              >
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText
-                  primaryTypographyProps={{
-                    sx: {
-                      fontWeight: 700,
-                      fontSize: 20,
-                    },
-                  }}
-                  primary={item.text}
-                />
-              </ListItem>
-            );
-          })}
-        </List>
-      </Drawer>
+                primary={item.text}
+              />
+            </ListItem>
+          );
+        })}
+      </List>
     </>
   );
 };

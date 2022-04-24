@@ -3,6 +3,7 @@ import { Word } from "../types/types";
 import { AddForm } from "./form/AddForm";
 import { WordsList } from "./WordsList";
 import Box from "@mui/material/Box";
+import { drawerWidth } from "./Menu";
 
 type Msg =
   | {
@@ -25,16 +26,18 @@ type AppPageProps = {
 
 export const AppPage = ({ wordsList, onMsg }: AppPageProps) => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <AddForm onMsg={onMsg} />
-      <WordsList wordsList={wordsList} onMsg={onMsg} />
-    </Box>
+    <>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
+        <AddForm onMsg={onMsg} />
+        <WordsList wordsList={wordsList} onMsg={onMsg} />
+      </Box>
+    </>
   );
 };
