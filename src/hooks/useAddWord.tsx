@@ -23,7 +23,7 @@ export type State =
 export const isDraftValid = (draft: Translation): boolean => {
   const eng = draft.eng.trim();
   const rus = draft.rus.trim();
-  const cyrillicRegExpression = /^[а-яА-Я\s]*$/;
+  const cyrillicRegExpression = /^[а-яА-Я,\s]*$/;
   const latinRegExpression = /^[a-zA-Z\s]*$/;
   let isValid = null;
   if (eng.length + rus.length < 2) {

@@ -3,7 +3,6 @@ import { Translation } from "../../types/types";
 import { Input, Button, Typography, Stack } from "@mui/material";
 import { isDraftValid, useAddWord } from "../../hooks/useAddWord";
 import { LoadingComponent } from "../LoadingComponent";
-import Box from "@mui/material/Box";
 import { formBackgroundColor } from "../constants/colors";
 
 type AddFormProps = {

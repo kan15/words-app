@@ -47,18 +47,46 @@ const checkLearningWords = (words: LearningWord[], lang: Language) => {
   );
 };
 
+const preparedStringForChecking = (
+  word: LearningWord,
+  keyLang: "rus" | "eng"
+) => {
+  let allOriginalVariants: string[] = word[keyLang].split(",");
+  allOriginalVariants = allOriginalVariants.map((word) =>
+    word.toUpperCase().trim()
+  );
+  let allEnteredVariants: string[] = word.userValue.split(",");
+  allEnteredVariants = allEnteredVariants.map((word) =>
+    word.toUpperCase().trim()
+  );
+  return {
+    allOriginalVariants: allOriginalVariants,
+    allEnteredVariants: allEnteredVariants,
+  };
+};
+
 const getCorrectWords = (words: LearningWord[], lang: Language) => {
   const keyLang = lang === "RU" ? "rus" : "eng";
-  return words.filter(
-    (word) => word[keyLang].toUpperCase() === word.userValue.toUpperCase()
-  );
+  const correctWords = (word: LearningWord) => {
+    const { allEnteredVariants, allOriginalVariants } =
+      preparedStringForChecking(word, keyLang);
+    return allEnteredVariants.some((variant) =>
+      allOriginalVariants.includes(variant)
+    );
+  };
+  return words.filter(correctWords);
 };
 
 const getWrongWords = (words: LearningWord[], lang: Language) => {
   const keyLang = lang === "RU" ? "rus" : "eng";
-  return words.filter(
-    (word) => word[keyLang].toUpperCase() !== word.userValue.toUpperCase()
-  );
+  const wrongWords = (word: LearningWord) => {
+    const { allEnteredVariants, allOriginalVariants } =
+      preparedStringForChecking(word, keyLang);
+    return !allEnteredVariants.some((variant) =>
+      allOriginalVariants.includes(variant)
+    );
+  };
+  return words.filter(wrongWords);
 };
 
 export const LearningTable = ({
