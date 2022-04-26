@@ -7,6 +7,12 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TextField from "@mui/material/TextField";
+import {
+  successInputItemColor,
+  tableHeadColor,
+  tableRowEvenColor,
+  tableRowOddColor,
+} from "../constants/colors";
 
 type LearningListSuccessProps = {
   words: LearningWord[];
@@ -18,32 +24,58 @@ export const LearningListSuccess = ({
   language,
 }: LearningListSuccessProps) => {
   return (
-    <TableContainer>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableContainer
+      sx={{
+        "td, th": {
+          fontSize: 24,
+        },
+      }}
+    >
+      <Table sx={{ width: 900 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
-            <TableCell>№</TableCell>
-            <TableCell>{language === "ENG" ? "Russian" : "English"}</TableCell>
-            <TableCell>{language === "ENG" ? "English" : "Russian"}</TableCell>
+          <TableRow sx={{ backgroundColor: tableHeadColor }}>
+            <TableCell width="6%">№</TableCell>
+            <TableCell width="47%">
+              {language === "RU" ? "English" : "Russian"}
+            </TableCell>
+            <TableCell width="47%">
+              {language === "RU" ? "Russian" : "English"}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {words.map((word: LearningWord, index: number) => {
             return (
-              <TableRow key={word.key}>
+              <TableRow
+                key={word.key}
+                sx={{
+                  "&:nth-child(odd) td, &:nth-child(odd) th": {
+                    backgroundColor: tableRowOddColor,
+                  },
+                  "&:nth-child(even) td, &:nth-child(even) th": {
+                    backgroundColor: tableRowEvenColor,
+                  },
+                }}
+              >
                 <TableCell component="th" scope="row">
                   {++index}
                 </TableCell>
                 <TableCell>
                   {language === "ENG" ? word.rus : word.eng}
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ p: 0 }}>
                   <TextField
                     value={language === "ENG" ? word.eng : word.rus}
                     disabled
                     variant="outlined"
                     inputProps={{
-                      sx: { backgroundColor: "#99ff99" },
+                      sx: {
+                        backgroundColor: successInputItemColor,
+                        fontSize: 24,
+                        pl: 2,
+                        pt: 0.5,
+                        pb: 0.5,
+                      },
                     }}
                   />
                 </TableCell>

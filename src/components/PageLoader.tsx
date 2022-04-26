@@ -1,14 +1,19 @@
-import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import { LoadingComponent } from "./LoadingComponent";
 import { useWordsList } from "../hooks/useWordsList";
 import { notReachable } from "../utilities/utilities";
 import { ErrorComponent } from "./ErrorComponent";
 import { AppPage } from "./AppPage";
 import { LearningPage } from "./learning/LearningPage";
+import { drawerWidth, Menu } from "./Menu";
+import Box from "@mui/material/Box";
+import { Drawer, Toolbar } from "@mui/material";
+import { Header } from "./Header";
 
 export const PageLoader = () => {
   const { state, reloadWordsList } = useWordsList();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   switch (state.type) {
     case "loading":
@@ -17,38 +22,96 @@ export const PageLoader = () => {
     case "loaded":
       return (
         <>
-          <header>
-            <Link to="/">Home</Link>
-            <Link to="/learning">Start learning</Link>
-          </header>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <AppPage
-                  wordsList={state.wordsList}
-                  onMsg={(msg) => {
-                    switch (msg.type) {
-                      case "new_word_added":
-                      case "word_deleted":
-                      case "word_updated":
-                        reloadWordsList();
-                        return;
-                      case "list_is_loaded":
-                        return;
-                      default:
-                        notReachable(msg);
-                        break;
-                    }
-                  }}
+          <Box sx={{ display: "flex" }}>
+            <Header
+              onMsg={(msg) => {
+                switch (msg.type) {
+                  case "mobile_open":
+                    setMobileOpen(!mobileOpen);
+                }
+              }}
+            />
+            <Box
+              component="nav"
+              sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+              aria-label="mailbox folders"
+            >
+              <Drawer
+                variant="temporary"
+                open={mobileOpen}
+                ModalProps={{
+                  keepMounted: true,
+                }}
+                onClose={(e) => {
+                  setMobileOpen(!mobileOpen);
+                }}
+                sx={{
+                  display: { xs: "block", sm: "none" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                  },
+                }}
+              >
+                <Menu />
+              </Drawer>
+              <Drawer
+                variant="permanent"
+                sx={{
+                  display: { xs: "none", sm: "block" },
+                  "& .MuiDrawer-paper": {
+                    boxSizing: "border-box",
+                    width: drawerWidth,
+                  },
+                }}
+                open
+              >
+                <Menu />
+              </Drawer>
+            </Box>
+            <Box
+              component="main"
+              sx={{
+                flexGrow: 1,
+                p: 3,
+                width: { sm: `calc(100% - ${drawerWidth}px)` },
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Toolbar />
+              <Routes>
+                <Route
+                  path="/words-app"
+                  element={
+                    <AppPage
+                      wordsList={state.wordsList}
+                      onMsg={(msg) => {
+                        switch (msg.type) {
+                          case "new_word_added":
+                          case "word_deleted":
+                          case "word_updated":
+                            reloadWordsList();
+                            return;
+                          case "list_is_loaded":
+                            return;
+                          default:
+                            notReachable(msg);
+                            break;
+                        }
+                      }}
+                    />
+                  }
                 />
-              }
-            />
-            <Route
-              path="/learning"
-              element={<LearningPage wordsList={state.wordsList} />}
-            />
-          </Routes>
+                <Route
+                  path="/learning"
+                  element={<LearningPage wordsList={state.wordsList} />}
+                />
+              </Routes>
+            </Box>
+          </Box>
         </>
       );
 

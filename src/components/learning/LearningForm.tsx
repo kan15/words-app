@@ -4,6 +4,8 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { Language } from "../../types/types";
+import { Stack, Typography } from "@mui/material";
+import { formBackgroundColor } from "../constants/colors";
 
 const studyTypes = [
   {
@@ -48,6 +50,7 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
   return (
     <form
       method="get"
+      className={"form"}
       onSubmit={(e) => {
         onMsg({
           type: "on_form_submitted",
@@ -56,39 +59,66 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
         e.preventDefault();
       }}
     >
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={state.language}
-        label="Language"
-        onChange={(event) => {
-          setState((prevState) => ({
-            ...prevState,
-            language: event.target.value as Language,
-          }));
+      <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+        sx={{
+          border: "2px solid white",
+          borderRadius: "15px",
+          backgroundColor: formBackgroundColor,
+          p: 2,
         }}
       >
-        {studyTypes.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-      <TextField
-        id="outlined-number"
-        InputProps={{ inputProps: { min: 1 } }}
-        label="Number of words"
-        type="number"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={handleChangeNumberInput}
-      />
-      {state.amountOfWords ? (
-        <Button id="startLearningBtn" variant="contained" type="submit">
-          Start Learning
-        </Button>
-      ) : null}
+        <Typography
+          sx={{
+            fontSize: 20,
+          }}
+        >
+          In what direction do you want to repeat the words?
+        </Typography>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          style={{ width: 110 }}
+          value={state.language}
+          onChange={(event) => {
+            setState((prevState) => ({
+              ...prevState,
+              language: event.target.value as Language,
+            }));
+          }}
+        >
+          {studyTypes.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        <Typography
+          sx={{
+            fontSize: 20,
+          }}
+        >
+          How many words do you want to repeat?
+        </Typography>
+        <TextField
+          id="outlined-number"
+          InputProps={{ inputProps: { min: 1 } }}
+          style={{ width: 110 }}
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={handleChangeNumberInput}
+        />
+        {state.amountOfWords ? (
+          <Button id="startLearningBtn" variant="contained" type="submit">
+            Start Learning
+          </Button>
+        ) : null}
+      </Stack>
     </form>
   );
 };
