@@ -33,7 +33,7 @@ export const Header = ({ onMsg }: HeaderProps) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          Responsive drawer
+          OK Words
         </Typography>
       </Toolbar>
     </AppBar>

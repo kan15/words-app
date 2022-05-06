@@ -11,9 +11,8 @@ import {
   emptyInputItemColor,
   errorInputItemColor,
   tableHeadColor,
-  tableRowEvenColor,
-  tableRowOddColor,
 } from "../constants/colors";
+import { CustomizedTableRow } from "../constants/customizedComponents";
 
 type LearningListMsg = {
   type: "on_user_word_changed";
@@ -88,17 +87,7 @@ export const LearningList = ({
           <TableBody>
             {learningWords.map((word: LearningWord, index: number) => {
               return (
-                <TableRow
-                  key={word.key}
-                  sx={{
-                    "&:nth-child(odd) td, &:nth-child(odd) th": {
-                      backgroundColor: tableRowOddColor,
-                    },
-                    "&:nth-child(even) td, &:nth-child(even) th": {
-                      backgroundColor: tableRowEvenColor,
-                    },
-                  }}
-                >
+                <CustomizedTableRow key={word.key}>
                   <TableCell component="th" scope="row" width="6%">
                     {index + firstWordNumber}
                   </TableCell>
@@ -131,7 +120,7 @@ export const LearningList = ({
                       }}
                     />
                   </TableCell>
-                </TableRow>
+                </CustomizedTableRow>
               );
             })}
           </TableBody>

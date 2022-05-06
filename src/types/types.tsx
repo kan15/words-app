@@ -3,6 +3,11 @@ export type Translation = {
   rus: string;
 };
 
+export type TranscriptionAudio = {
+  text: string;
+  audio: string;
+};
+
 export type TranslationKeys = keyof Translation;
 
 export type Word = Translation & {

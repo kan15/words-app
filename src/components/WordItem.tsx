@@ -1,13 +1,12 @@
 import React from "react";
 import { Word } from "../types/types";
 import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
 import apiQueries from "../api/apiQueries";
 import Button from "@mui/material/Button";
 import { Stack } from "@mui/material";
-import { tableRowEvenColor, tableRowOddColor } from "./constants/colors";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { CustomizedTableRow } from "./constants/customizedComponents";
 
 export const styleButton = {
   maxWidth: 30,
@@ -40,16 +39,7 @@ export const WordItem = ({
   onWordsListMsg,
 }: WordItemProps) => {
   return (
-    <TableRow
-      sx={{
-        "&:nth-child(odd) td, &:nth-child(odd) th": {
-          backgroundColor: tableRowOddColor,
-        },
-        "&:nth-child(even) td, &:nth-child(even) th": {
-          backgroundColor: tableRowEvenColor,
-        },
-      }}
-    >
+    <CustomizedTableRow>
       <TableCell component="th" scope="row" width="5%">
         {index}
       </TableCell>
@@ -85,6 +75,6 @@ export const WordItem = ({
           </Button>
         </Stack>
       </TableCell>
-    </TableRow>
+    </CustomizedTableRow>
   );
 };

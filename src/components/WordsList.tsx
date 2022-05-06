@@ -59,6 +59,7 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
           </TableHead>
           <TableBody>
             {wordsList.map((word: Word, index: number) => {
+              console.log(word);
               return word === editableWord ? (
                 <EditableWord
                   key={word.key}

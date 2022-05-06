@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Word } from "../types/types";
 import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
 import apiQueries from "../api/apiQueries";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Stack } from "@mui/material";
 import { styleButton } from "./WordItem";
-import { tableRowEvenColor, tableRowOddColor } from "./constants/colors";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import DoDisturbOffOutlinedIcon from "@mui/icons-material/DoDisturbOffOutlined";
+import { CustomizedTableRow } from "./constants/customizedComponents";
 
 const inputStyle = {
   fontSize: 24,
@@ -51,16 +50,7 @@ export const EditableWord = ({
   };
 
   return (
-    <TableRow
-      sx={{
-        "&:nth-child(odd) td, &:nth-child(odd) th": {
-          backgroundColor: tableRowOddColor,
-        },
-        "&:nth-child(even) td, &:nth-child(even) th": {
-          backgroundColor: tableRowEvenColor,
-        },
-      }}
-    >
+    <CustomizedTableRow>
       <TableCell component="th" scope="row">
         {index}
       </TableCell>
@@ -117,6 +107,6 @@ export const EditableWord = ({
           </Button>
         </Stack>
       </TableCell>
-    </TableRow>
+    </CustomizedTableRow>
   );
 };
