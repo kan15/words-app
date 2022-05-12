@@ -1,17 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import Box from "@mui/material/Box";
 import SubjectOutlinedIcon from "@mui/icons-material/SubjectOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import {
-  itemMenuBackgroundColor,
-  menuBackgroundColor,
-} from "./constants/colors";
+import { customColors } from "./constants/colors";
+import { CardMedia } from "@mui/material";
 
 export const drawerWidth = 240;
 
@@ -26,22 +22,22 @@ const menuItems = [
     path: "/learning",
     icon: <SchoolOutlinedIcon />,
   },
-];
+] as const;
 
 export const Menu = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Box
+      <CardMedia
         component="img"
+        image="https://i.postimg.cc/PrMJ5V2n/OKlogo.png"
+        alt="Logo"
         sx={{
-          height: 120,
+          height: 100,
           width: "100%",
-          maxHeight: { xs: 240, md: 120 },
+          maxHeight: { xs: 240, md: 100 },
           maxWidth: { xs: "100%", md: "100%" },
         }}
-        alt="Logo"
-        src="https://i.postimg.cc/PrMJ5V2n/OKlogo.png"
       />
       <List>
         {menuItems.map((item) => {
@@ -52,7 +48,10 @@ export const Menu = () => {
               onClick={() => {
                 navigate(item.path);
               }}
-              sx={{ backgroundColor: itemMenuBackgroundColor, mb: 0.25 }}
+              sx={{
+                backgroundColor: customColors.itemMenuBackground,
+                mb: 0.25,
+              }}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText

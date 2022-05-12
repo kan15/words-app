@@ -1,10 +1,13 @@
-export const tableHeadColor = "#8db5bf";
-export const tableRowOddColor = "#deeaed";
-export const tableRowEvenColor = "#bed5da";
-export const menuBackgroundColor = "#cedfe3";
-export const formBackgroundColor = tableRowOddColor;
-export const textBackgroundColor = tableRowOddColor;
-export const itemMenuBackgroundColor = "#bed5da";
-export const errorInputItemColor = "#ff6666";
-export const successInputItemColor = "#99ff99";
-export const emptyInputItemColor = "#fff";
+export const customColors = {
+  tableHead: "#8db5bf",
+  tableRowOdd: "#deeaed",
+  tableRowEven: "#bed5da",
+  menuBackground: "#cedfe3",
+  generalBackground: "#5c95a3",
+  formBackground: "#deeaed",
+  textBackground: "#deeaed",
+  itemMenuBackground: "#bed5da",
+  errorInputItem: "#ff6666",
+  successInputItem: "#99ff99",
+  emptyInputItem: "#fff",
+};

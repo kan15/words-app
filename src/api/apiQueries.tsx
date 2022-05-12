@@ -41,13 +41,12 @@ const apiQueries = {
 
   addItem(newWord: Translation): Promise<void> {
     const newWordKey = firebase.database().ref().child("words").push().key;
-    const updates: { [index: string]: {} } = {};
     //Here I want to add the pronunciation and add it to the database along with the data from the user.
     return getPronunciation(newWord.eng)
       .then((pronunciation) => {
-        updates[`/words/${newWordKey}`] = { ...newWord, ...pronunciation };
+        return { [`/words/${newWordKey}`]: { ...newWord, ...pronunciation } };
       })
-      .then(() => {
+      .then((updates) => {
         firebase.database().ref().update(updates);
       });
   },
@@ -58,7 +57,6 @@ const apiQueries = {
   },
 
   deleteItem(word: Word) {
-    console.log(word.key);
     const adaRef = firebase.database().ref(`words/${word.key}`);
     adaRef
       .remove()

@@ -7,11 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TextField from "@mui/material/TextField";
-import {
-  emptyInputItemColor,
-  errorInputItemColor,
-  tableHeadColor,
-} from "../constants/colors";
+import { customColors } from "../constants/colors";
 import { CustomizedTableRow } from "../constants/customizedComponents";
 
 type LearningListMsg = {
@@ -28,7 +24,7 @@ type LearningListProps = {
 };
 
 const getEmptyInputs = () => {
-  let inputs: HTMLElement[] = Array.from(
+  const inputs: HTMLElement[] = Array.from(
     document.querySelectorAll("input[type=text]")
   );
   const disabled: HTMLElement[] = Array.from(
@@ -45,7 +41,9 @@ export const LearningList = ({
   onMsg,
 }: LearningListProps) => {
   const backgroundColor = () => {
-    return showAsErrorWords ? errorInputItemColor : emptyInputItemColor;
+    return showAsErrorWords
+      ? customColors.errorInputItem
+      : customColors.emptyInputItem;
   };
 
   const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -73,7 +71,7 @@ export const LearningList = ({
         >
           {firstWordNumber === 1 && (
             <TableHead>
-              <TableRow sx={{ backgroundColor: tableHeadColor }}>
+              <TableRow sx={{ backgroundColor: customColors.tableHead }}>
                 <TableCell width="6%">№</TableCell>
                 <TableCell width="47%">
                   {language === "RU" ? "English" : "Russian"}

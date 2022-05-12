@@ -2,19 +2,13 @@ import React from "react";
 import { Word } from "../types/types";
 import TableCell from "@mui/material/TableCell";
 import apiQueries from "../api/apiQueries";
-import Button from "@mui/material/Button";
 import { Stack } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { CustomizedTableRow } from "./constants/customizedComponents";
-
-export const styleButton = {
-  maxWidth: 30,
-  maxHeight: 30,
-  minWidth: 30,
-  minHeight: 30,
-  p: 0,
-};
+import {
+  CustomizedButton,
+  CustomizedTableRow,
+} from "./constants/customizedComponents";
 
 type Msg = {
   type: "word_deleted";
@@ -52,8 +46,7 @@ export const WordItem = ({
           alignItems="center"
           spacing={2}
         >
-          <Button
-            sx={styleButton}
+          <CustomizedButton
             variant="contained"
             color="warning"
             onClick={(e) => {
@@ -61,9 +54,8 @@ export const WordItem = ({
             }}
           >
             <ModeEditOutlineOutlinedIcon fontSize="small" />
-          </Button>
-          <Button
-            sx={styleButton}
+          </CustomizedButton>
+          <CustomizedButton
             variant="contained"
             color="error"
             onClick={(e) => {
@@ -72,7 +64,7 @@ export const WordItem = ({
             }}
           >
             <DeleteOutlineOutlinedIcon fontSize="small" />
-          </Button>
+          </CustomizedButton>
         </Stack>
       </TableCell>
     </CustomizedTableRow>

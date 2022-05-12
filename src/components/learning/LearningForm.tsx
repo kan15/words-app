@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { Language } from "../../types/types";
 import { Stack, Typography } from "@mui/material";
-import { formBackgroundColor } from "../constants/colors";
+import { customColors } from "../constants/colors";
 
 const studyTypes = [
   {
@@ -67,7 +67,7 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
         sx={{
           border: "2px solid white",
           borderRadius: "15px",
-          backgroundColor: formBackgroundColor,
+          backgroundColor: customColors.formBackground,
           p: 2,
         }}
       >
@@ -113,11 +113,11 @@ export const LearningForm = ({ onMsg }: LearningFormProps) => {
           }}
           onChange={handleChangeNumberInput}
         />
-        {state.amountOfWords ? (
+        {state.amountOfWords && (
           <Button id="startLearningBtn" variant="contained" type="submit">
             Start Learning
           </Button>
-        ) : null}
+        )}
       </Stack>
     </form>
   );

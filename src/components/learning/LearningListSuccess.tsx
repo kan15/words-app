@@ -7,16 +7,18 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TextField from "@mui/material/TextField";
-import {
-  successInputItemColor,
-  tableHeadColor,
-  tableRowEvenColor,
-  tableRowOddColor,
-} from "../constants/colors";
+import { customColors } from "../constants/colors";
 
 type LearningListSuccessProps = {
   words: LearningWord[];
   language: Language;
+};
+
+const showFirstLangTitle = (lang: Language): string => {
+  return lang === "RU" ? "English" : "Russian";
+};
+const showSecondLangTitle = (lang: Language): string => {
+  return lang === "RU" ? "Russian" : "English";
 };
 
 export const LearningListSuccess = ({
@@ -33,14 +35,10 @@ export const LearningListSuccess = ({
     >
       <Table sx={{ width: 900 }} aria-label="simple table">
         <TableHead>
-          <TableRow sx={{ backgroundColor: tableHeadColor }}>
+          <TableRow sx={{ backgroundColor: customColors.tableHead }}>
             <TableCell width="6%">№</TableCell>
-            <TableCell width="47%">
-              {language === "RU" ? "English" : "Russian"}
-            </TableCell>
-            <TableCell width="47%">
-              {language === "RU" ? "Russian" : "English"}
-            </TableCell>
+            <TableCell width="47%">{showFirstLangTitle(language)}</TableCell>
+            <TableCell width="47%">{showSecondLangTitle(language)}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -50,10 +48,10 @@ export const LearningListSuccess = ({
                 key={word.key}
                 sx={{
                   "&:nth-child(odd) td, &:nth-child(odd) th": {
-                    backgroundColor: tableRowOddColor,
+                    backgroundColor: customColors.tableRowOdd,
                   },
                   "&:nth-child(even) td, &:nth-child(even) th": {
-                    backgroundColor: tableRowEvenColor,
+                    backgroundColor: customColors.tableRowEven,
                   },
                 }}
               >
@@ -70,7 +68,7 @@ export const LearningListSuccess = ({
                     variant="outlined"
                     inputProps={{
                       sx: {
-                        backgroundColor: successInputItemColor,
+                        backgroundColor: customColors.successInputItem,
                         fontSize: 24,
                         pl: 2,
                         pt: 0.5,

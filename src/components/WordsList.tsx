@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { EditableWord } from "./EditableWord";
 import { WordItem } from "./WordItem";
-import { tableHeadColor } from "./constants/colors";
+import { customColors } from "./constants/colors";
 import { Paper } from "@mui/material";
 
 type Msg =
@@ -49,7 +49,7 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
       >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow sx={{ backgroundColor: tableHeadColor }}>
+            <TableRow sx={{ backgroundColor: customColors.tableHead }}>
               <TableCell width="5%">№</TableCell>
               <TableCell width="45%">English</TableCell>
               <TableCell width="50%" colSpan={2}>
@@ -59,7 +59,6 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
           </TableHead>
           <TableBody>
             {wordsList.map((word: Word, index: number) => {
-              console.log(word);
               return word === editableWord ? (
                 <EditableWord
                   key={word.key}

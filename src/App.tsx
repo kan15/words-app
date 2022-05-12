@@ -1,14 +1,21 @@
 import React from "react";
 import { PageLoader } from "./components/PageLoader";
-
-import "./index.css";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Typography } from "@mui/material";
+import { customColors } from "./components/constants/colors";
 
 function App() {
   return (
     <>
       <CssBaseline />
-      <PageLoader />
+      <Typography
+        style={{
+          height: "100%",
+          width: "100%",
+          background: customColors.generalBackground,
+        }}
+      >
+        <PageLoader />
+      </Typography>
     </>
   );
 }

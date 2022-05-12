@@ -3,8 +3,7 @@ import { Translation } from "../../types/types";
 import { Input, Button, Typography, Stack } from "@mui/material";
 import { isDraftValid, useAddWord } from "../../hooks/useAddWord";
 import { LoadingComponent } from "../LoadingComponent";
-import Box from "@mui/material/Box";
-import { formBackgroundColor } from "../constants/colors";
+import { customColors } from "../constants/colors";
 
 type AddFormProps = {
   onMsg: (msg: Msg) => void;
@@ -68,7 +67,7 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
               sx={{
                 border: "2px solid white",
                 borderRadius: "15px",
-                backgroundColor: formBackgroundColor,
+                backgroundColor: customColors.formBackground,
                 p: 2,
               }}
             >
@@ -102,7 +101,6 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
                 }}
               />
               <Button
-                className={"form__button"}
                 variant="contained"
                 color="success"
                 type="submit"
