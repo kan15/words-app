@@ -41,6 +41,10 @@ type ReturnType = {
   setError: (error: string) => void;
 };
 
+interface IngNewWord {
+  word: Translation;
+}
+
 export const useAddWord = (): ReturnType => {
   const [state, setState] = useState<State>({
     type: "not_asked",
@@ -55,7 +59,7 @@ export const useAddWord = (): ReturnType => {
       case "error":
         break;
       case "loading": {
-        addingNewWord(state.draft);
+        addingNewWord({ word: state.draft });
         break;
       }
       default: {
@@ -64,7 +68,7 @@ export const useAddWord = (): ReturnType => {
     }
   }, [state]);
 
-  const addingNewWord = (word: Translation) => {
+  const addingNewWord = ({ word }: IngNewWord) => {
     apiQueries
       .addItem(word)
       .then(() => {

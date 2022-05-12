@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import { Word } from "../types/types";
 import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import { GiCancel } from "react-icons/gi";
-import { MdDone } from "react-icons/md";
 import apiQueries from "../api/apiQueries";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { Stack } from "@mui/material";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
+import DoDisturbOffOutlinedIcon from "@mui/icons-material/DoDisturbOffOutlined";
+import {
+  CustomizedButton,
+  CustomizedTableRow,
+} from "./constants/customizedComponents";
+
+const inputStyle = {
+  fontSize: 24,
+  pl: 2,
+  pt: 0.5,
+  pb: 0.5,
+};
 
 type Msg = {
   type: "word_updated";
@@ -38,53 +48,64 @@ export const EditableWord = ({
       ...draftEditableWord,
       [name]: value,
     }));
-    console.log(draftEditableWord);
   };
 
   return (
-    <TableRow>
+    <CustomizedTableRow>
       <TableCell component="th" scope="row">
         {index}
       </TableCell>
-      <TableCell>
+      <TableCell sx={{ p: 0 }}>
         <TextField
-          label="English"
           variant="outlined"
           value={draftEditableWord.eng}
           onChange={handleChange}
           name="eng"
+          inputProps={{
+            sx: inputStyle,
+          }}
         />
       </TableCell>
-      <TableCell>
+      <TableCell sx={{ p: 0 }}>
         <TextField
-          label="Russian"
           variant="outlined"
           value={draftEditableWord.rus}
           onChange={handleChange}
           name="rus"
+          inputProps={{
+            sx: inputStyle,
+          }}
         />
       </TableCell>
       <TableCell>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={(e) => {
-            apiQueries.updateItem(draftEditableWord);
-            onMsg({ type: "word_updated" });
-          }}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
         >
-          <MdDone />
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={(e) => {
-            onWordsListMsg({ type: "cancel_change" });
-          }}
-        >
-          <GiCancel />
-        </Button>
+          <CustomizedButton
+            variant="contained"
+            color="success"
+            onClick={(e) => {
+              apiQueries
+                .updateItem(draftEditableWord)
+                .then(() => onMsg({ type: "word_updated" }));
+            }}
+          >
+            <CheckOutlinedIcon fontSize="small" />
+          </CustomizedButton>
+          <CustomizedButton
+            variant="contained"
+            color="info"
+            onClick={(e) => {
+              onWordsListMsg({ type: "cancel_change" });
+            }}
+          >
+            <DoDisturbOffOutlinedIcon fontSize="small" />
+          </CustomizedButton>
+        </Stack>
       </TableCell>
-    </TableRow>
+    </CustomizedTableRow>
   );
 };

@@ -8,6 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { EditableWord } from "./EditableWord";
 import { WordItem } from "./WordItem";
+import { customColors } from "./constants/colors";
+import { Paper } from "@mui/material";
 
 type Msg =
   | {
@@ -36,13 +38,23 @@ export const WordsList = ({ wordsList, onMsg }: WordsListProps) => {
 
   return (
     <>
-      <TableContainer>
+      <TableContainer
+        sx={{
+          mt: 2.5,
+          "td, th": {
+            fontSize: 24,
+          },
+        }}
+        component={Paper}
+      >
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
-            <TableRow>
-              <TableCell>№</TableCell>
-              <TableCell>Eng</TableCell>
-              <TableCell>Rus</TableCell>
+            <TableRow sx={{ backgroundColor: customColors.tableHead }}>
+              <TableCell width="5%">№</TableCell>
+              <TableCell width="45%">English</TableCell>
+              <TableCell width="50%" colSpan={2}>
+                Russian
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

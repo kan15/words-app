@@ -7,6 +7,8 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TextField from "@mui/material/TextField";
+import { customColors } from "../constants/colors";
+import { CustomizedTableRow } from "../constants/customizedComponents";
 
 type LearningListMsg = {
   type: "on_user_word_changed";
@@ -17,46 +19,86 @@ type LearningListProps = {
   language: Language;
   showAsErrorWords: boolean;
   learningWords: LearningWord[];
+  firstWordNumber: number;
   onMsg: (msg: LearningListMsg) => void;
+};
+
+const getEmptyInputs = () => {
+  const inputs: HTMLElement[] = Array.from(
+    document.querySelectorAll("input[type=text]")
+  );
+  const disabled: HTMLElement[] = Array.from(
+    document.querySelectorAll("input[type=text]:disabled")
+  );
+  return inputs.filter((el) => !disabled.includes(el)); // get inputs without disabled option
 };
 
 export const LearningList = ({
   language,
   showAsErrorWords,
   learningWords,
+  firstWordNumber,
   onMsg,
 }: LearningListProps) => {
   const backgroundColor = () => {
-    return showAsErrorWords ? "#ff6666" : "#fff";
+    return showAsErrorWords
+      ? customColors.errorInputItem
+      : customColors.emptyInputItem;
+  };
+
+  const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      const inputs = getEmptyInputs();
+      const currentInput = event.target;
+      const index = inputs.findIndex((input) => input === currentInput);
+      inputs[index + 1 === inputs.length ? 0 : index + 1].focus();
+    }
   };
 
   return (
     <>
-      <TableContainer>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>№</TableCell>
-              <TableCell>{language === "RU" ? "English" : "Russian"}</TableCell>
-              <TableCell>{language === "RU" ? "Russian" : "English"}</TableCell>
-            </TableRow>
-          </TableHead>
+      <TableContainer
+        sx={{
+          "td, th": {
+            fontSize: 24,
+          },
+        }}
+      >
+        <Table
+          sx={{ width: 900 }}
+          aria-label="simple table"
+          className={"learning-table"}
+        >
+          {firstWordNumber === 1 && (
+            <TableHead>
+              <TableRow sx={{ backgroundColor: customColors.tableHead }}>
+                <TableCell width="6%">№</TableCell>
+                <TableCell width="47%">
+                  {language === "RU" ? "English" : "Russian"}
+                </TableCell>
+                <TableCell width="47%">
+                  {language === "RU" ? "Russian" : "English"}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+          )}
           <TableBody>
             {learningWords.map((word: LearningWord, index: number) => {
               return (
-                <TableRow key={word.key}>
-                  <TableCell component="th" scope="row">
-                    {++index}
+                <CustomizedTableRow key={word.key}>
+                  <TableCell component="th" scope="row" width="6%">
+                    {index + firstWordNumber}
                   </TableCell>
-                  <TableCell>
+                  <TableCell width="47%">
                     {language === "RU" ? word.eng : word.rus}
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ p: 0 }} width="47%">
                     <TextField
+                      onKeyDown={handleEnter}
                       onChange={(event) => {
                         const newLearningWords = [...learningWords];
-                        newLearningWords[index - 1] = {
-                          ...newLearningWords[index - 1],
+                        newLearningWords[index] = {
+                          ...newLearningWords[index],
                           userValue: event.target.value,
                         };
                         onMsg({
@@ -64,16 +106,19 @@ export const LearningList = ({
                           learningWords: newLearningWords,
                         });
                       }}
-                      // value={value}
-                      // disabled={disableInput()}
                       variant="outlined"
-                      // onBlur={submitChange}
                       inputProps={{
-                        sx: { backgroundColor: backgroundColor() },
+                        sx: {
+                          backgroundColor: backgroundColor(),
+                          fontSize: 24,
+                          pl: 2,
+                          pt: 0.5,
+                          pb: 0.5,
+                        },
                       }}
                     />
                   </TableCell>
-                </TableRow>
+                </CustomizedTableRow>
               );
             })}
           </TableBody>

@@ -1,17 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/database";
 import { Translation, Word } from "../types/types";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBr1PLF6Zdq_k2eLlR3HlgUApNGejrBNIA",
-  authDomain: "english-vocabulary-react.firebaseapp.com",
-  databaseURL: "https://english-vocabulary-react-default-rtdb.firebaseio.com",
-  projectId: "english-vocabulary-react",
-  storageBucket: "english-vocabulary-react.appspot.com",
-  messagingSenderId: "281598012164",
-  appId: "1:281598012164:web:7e8ed5899b5cf80bf8fe51",
-};
-firebase.initializeApp(firebaseConfig);
+import { getPronunciation } from "./apiDictionary";
 
 const errData = (error: string) => {
   console.log("Error!", error);
@@ -51,18 +41,22 @@ const apiQueries = {
 
   addItem(newWord: Translation): Promise<void> {
     const newWordKey = firebase.database().ref().child("words").push().key;
-    const updates: { [index: string]: {} } = {};
-    updates[`/words/${newWordKey}`] = newWord;
-    return firebase.database().ref().update(updates);
+    //Here I want to add the pronunciation and add it to the database along with the data from the user.
+    return getPronunciation(newWord.eng)
+      .then((pronunciation) => {
+        return { [`/words/${newWordKey}`]: { ...newWord, ...pronunciation } };
+      })
+      .then((updates) => {
+        firebase.database().ref().update(updates);
+      });
   },
 
-  updateItem(newWord: Word) {
+  updateItem(newWord: Word): Promise<void> {
     const adaNameRef = firebase.database().ref(`words/${newWord.key}`);
-    adaNameRef.update({ eng: newWord.eng, rus: newWord.rus });
+    return adaNameRef.update({ eng: newWord.eng, rus: newWord.rus });
   },
 
   deleteItem(word: Word) {
-    console.log(word.key);
     const adaRef = firebase.database().ref(`words/${word.key}`);
     adaRef
       .remove()

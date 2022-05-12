@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Translation } from "../../types/types";
-import { Input, Button, Stack } from "@mui/material";
+import { Input, Button, Typography, Stack } from "@mui/material";
 import { isDraftValid, useAddWord } from "../../hooks/useAddWord";
 import { LoadingComponent } from "../LoadingComponent";
+import { customColors } from "../constants/colors";
 
 type AddFormProps = {
   onMsg: (msg: Msg) => void;
@@ -45,7 +46,7 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
     if (isDraftValid(draft)) {
       addWord(draft);
     } else {
-      setError("draft is not valid");
+      setError("The word you entered is not correct!");
     }
   };
 
@@ -56,34 +57,66 @@ export const AddForm = ({ onMsg }: AddFormProps) => {
     case "not_asked":
     case "loaded":
       return (
-        <form method="get" onSubmit={handleSubmit}>
-          <Stack gap={1} flexDirection={"row"}>
-            <Input type="text"
-              value={draft.eng}
-              name="eng"
-              onChange={handleChange}
-            />
-            <Input
-              type="text"
-              value={draft.rus}
-              name="rus"
-              onChange={handleChange}
-            />
-            <Button
-              variant="contained"
-              color="success"
-              type="submit"
-              onClick={(e) => {
-                handleSubmit();
-                e.preventDefault();
+        <>
+          <form method="get" onSubmit={handleSubmit} className={"form"}>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
+              sx={{
+                border: "2px solid white",
+                borderRadius: "15px",
+                backgroundColor: customColors.formBackground,
+                p: 2,
               }}
             >
-              Add word
-            </Button>
-          </Stack>
-
-          <div>{state.type === "error" ? state.error : "no errors"}</div>
-        </form>
+              <Typography
+                sx={{
+                  fontSize: 20,
+                }}
+              >
+                Do you want to add a new word to your list?
+              </Typography>
+              <Input
+                placeholder={"English word version"}
+                type="text"
+                value={draft.eng}
+                name="eng"
+                onChange={handleChange}
+                sx={{ mt: 1.5, mb: 0.75 }}
+                inputProps={{
+                  sx: { fontSize: 20 },
+                }}
+              />
+              <Input
+                placeholder={"Russian word version"}
+                type="text"
+                value={draft.rus}
+                name="rus"
+                onChange={handleChange}
+                sx={{ mt: 0.75, mb: 2.5 }}
+                inputProps={{
+                  sx: { fontSize: 20 },
+                }}
+              />
+              <Button
+                variant="contained"
+                color="success"
+                type="submit"
+                onClick={(e) => {
+                  handleSubmit();
+                  e.preventDefault();
+                }}
+              >
+                Add word
+              </Button>
+              <div className={"form_error"}>
+                {state.type === "error" ? state.error : null}
+              </div>
+            </Stack>
+          </form>
+        </>
       );
   }
 };
